@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    // font-family: 'Share Tech Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.fluid {
+    width: 100%;
+    background-color: #0b1f32;
+}
+
+header {
+    display: flex;
+    height: 3rem;
+    padding: 1rem 0;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+    background-color: #0b1f32;
+    color: #f9ebe7;
+    div {
+        // font-weight: 600;
+    }
+    ul {
+        display: flex;
+        list-style: none;
+        // display: none;
+    }
+    a {
+        padding: 0.9rem 1.5rem;
+        color: #f9ebe7;
+        text-decoration: none;
+        &:hover {
+            background-color: #60adfb;
+            color: #0b1f32;
+            transition: all 0.2s;
+        }
+    }
+}
+
+.hero {
+    min-height: 500px;
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    & > div {
+        width: 600px;
+    }
+    h1 {
+        font-size: 1.563rem;
+    }
+    p {
+        // margin: 2rem 0;
+        margin-bottom: 3rem;
+        margin-top: 1.5rem;
+        line-height: 2rem;
+    }
+    button {
+        width: 10rem;
+        height: 3rem;
+        border-radius: 0.5rem;
+        border: 1px solid #f01952;
+        background-color: white;
+        cursor: pointer;
+    }
+    button.primary-btn {
+        background-color: #f01952;
+        color: white;
+        margin-right: 1.5rem;
+        font-weight: 600;
+    }
+    img {
+        max-width: 300px;
+        border-radius: 50%;
+        height: auto;
+    }
+}
