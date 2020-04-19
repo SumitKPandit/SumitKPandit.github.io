@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&display=swap");
 * {
   margin: 0;
@@ -9,97 +8,140 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.fluid {
+body {
   width: 100%;
-  background-color: #0b1f32;
-}
-
-header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 3rem;
-  padding: 1rem 0;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 75%;
-  margin: 0 auto;
-  background-color: #0b1f32;
-  color: #f9ebe7;
-}
-
-header ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  list-style: none;
-}
-
-header a {
-  padding: 0.9rem 1.5rem;
-  color: #f9ebe7;
-  text-decoration: none;
-}
-
-header a:hover {
-  background-color: #60adfb;
+  background-color: #f9ebe7;
   color: #0b1f32;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
+}
+
+@media only screen and (min-width: 576px) {
+  body {
+    height: 100vh;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #f01952;
+}
+
+a:hover {
+  color: #3fcf76;
+}
+
+strong {
+  font-weight: 600;
+}
+
+strong:hover {
+  background-color: #0b1f32;
 }
 
 .hero {
-  min-height: 500px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   width: 75%;
-  margin: 0 auto;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  margin: 3rem auto;
+}
+
+@media only screen and (min-width: 576px) {
+  .hero {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
 }
 
 .hero > div {
-  width: 600px;
+  margin-top: 3rem;
+}
+
+@media only screen and (min-width: 576px) {
+  .hero > div {
+    max-width: 37rem;
+    margin-left: 1rem;
+  }
 }
 
 .hero h1 {
-  font-size: 1.563rem;
+  font-size: 1.935rem;
+  font-weight: 600;
 }
 
 .hero p {
-  margin-bottom: 3rem;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   line-height: 2rem;
-}
-
-.hero button {
-  width: 10rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-  border: 1px solid #f01952;
-  background-color: white;
-  cursor: pointer;
-}
-
-.hero button.primary-btn {
-  background-color: #f01952;
-  color: white;
-  margin-right: 1.5rem;
-  font-weight: 600;
 }
 
 .hero img {
   max-width: 300px;
+  width: 90%;
   border-radius: 50%;
   height: auto;
+  -webkit-box-shadow: 0 50px 100px -75px #0b1f32;
+          box-shadow: 0 50px 100px -75px #0b1f32;
+}
+
+@media only screen and (min-width: 576px) {
+  .hero img {
+    width: 30%;
+  }
+}
+
+.hero .cta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #f01952;
+  font-size: 1.563rem;
+}
+
+.hero .cta ul {
+  list-style: none;
+}
+
+.hero .cta li {
+  padding: 0.25rem;
+  border-radius: 1rem;
+}
+
+@media only screen and (min-width: 576px) {
+  .hero .cta li {
+    padding: 1rem;
+  }
+}
+
+.hero .cta li:hover {
+  color: #60adfb;
+  -webkit-box-shadow: 0 5px 10px -8px #0b1f32;
+          box-shadow: 0 5px 10px -8px #0b1f32;
+}
+
+.hero .cta .skills {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.hero .cta .contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=main.css.map */
