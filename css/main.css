@@ -47,6 +47,7 @@ strong:hover {
 }
 
 .hero {
+  max-width: 950px;
   width: 75%;
   margin: 3rem auto;
 }
