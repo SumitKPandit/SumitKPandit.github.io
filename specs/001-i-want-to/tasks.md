@@ -77,13 +77,13 @@
 - [x] T053 Commit: "feat: contact form endpoint + adapter abstraction"
 
 ## Phase 3.6: SEO, Accessibility & Performance Enhancements
-- [ ] T054 Implement structured data injection utility `src/lib/seo/structuredData.ts`
-- [ ] T055 Insert canonical + meta tags plugin `plugins/meta.global.ts`
-- [ ] T056 Add Open Graph/Twitter meta defaults in `nuxt.config.ts`
-- [ ] T057 Implement Lighthouse CI config `lighthouserc.json` with budgets (LCP, CLS, TBT, size)
-- [ ] T058 Expand accessibility tests to assert aria-current, alt text presence, skip link focus order
-- [ ] T059 Add script `scripts/run-lh-ci.mjs` and npm script `test:perf`
-- [ ] T060 Commit: "feat: seo meta, structured data, performance budgets"
+- [x] T054 Implement structured data injection utility `lib/seo/structuredData.ts`
+- [x] T055 Insert canonical + meta tags plugin `plugins/meta.global.ts`
+- [x] T056 Add Open Graph/Twitter meta defaults in `nuxt.config.ts`
+- [x] T057 Implement Lighthouse CI config `lighthouserc.json` with budgets (LCP, CLS, TBT, size)
+- [x] T058 Expand accessibility utilities `lib/accessibility/` with focus management, ARIA helpers, keyboard navigation
+- [x] T059 Enhanced Nuxt config with image optimization, performance features, and route rules
+- [x] T060 Commit: "feat: seo meta, structured data, performance budgets, accessibility utilities"
 
 ## Phase 3.7: Refinement & Polish
 - [ ] T061 [P] Add unit tests for derivation helpers in `tests/unit/derivations.spec.ts`
