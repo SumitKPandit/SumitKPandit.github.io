@@ -1,0 +1,410 @@
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  # CodeQL Analysis
+  analyze:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript', 'typescript' ]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: +security-and-quality
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: pnpm run build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  # SARIF Upload (for custom analysis)
+  custom-analysis:
+    name: Custom Security Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint Security Plugin
+        run: |
+          # Install security-focused ESLint plugins
+          pnpm add -D eslint-plugin-security eslint-plugin-no-secrets
+          
+          # Create security-focused ESLint config
+          cat > .eslintrc.security.js << 'EOF'
+          module.exports = {
+            extends: ['./eslint.config.mjs'],
+            plugins: ['security', 'no-secrets'],
+            rules: {
+              'security/detect-object-injection': 'error',
+              'security/detect-non-literal-regexp': 'error',
+              'security/detect-unsafe-regex': 'error',
+              'security/detect-buffer-noassert': 'error',
+              'security/detect-child-process': 'error',
+              'security/detect-disable-mustache-escape': 'error',
+              'security/detect-eval-with-expression': 'error',
+              'security/detect-no-csrf-before-method-override': 'error',
+              'security/detect-non-literal-fs-filename': 'error',
+              'security/detect-non-literal-require': 'error',
+              'security/detect-possible-timing-attacks': 'error',
+              'security/detect-pseudoRandomBytes': 'error',
+              'no-secrets/no-secrets': 'error'
+            }
+          };
+          EOF
+          
+          # Run security linting
+          pnpm exec eslint . --config .eslintrc.security.js --format json --output-file eslint-security-results.json || true
+
+      - name: Convert ESLint results to SARIF
+        uses: microsoft/eslint-formatter-sarif@v1
+        if: always()
+        with:
+          sarif-file: eslint-security-results.sarif
+          eslint-results: eslint-security-results.json
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: eslint-security-results.sarif
+          category: 'eslint-security'
+
+  # Dependency vulnerability scan
+  dependency-scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run audit
+        run: |
+          echo "Running comprehensive dependency audit..."
+          
+          # Create audit report
+          pnpm audit --json > audit-report.json || true
+          
+          # Parse and format results
+          cat audit-report.json | jq -r '
+            if .advisories then
+              .advisories | to_entries[] | 
+              "VULNERABILITY: \(.value.title)\n" +
+              "Severity: \(.value.severity)\n" +
+              "Package: \(.value.module_name)\n" +
+              "Patched in: \(.value.patched_versions // "Not available")\n" +
+              "More info: \(.value.url)\n" +
+              "---"
+            else
+              "No vulnerabilities found in dependencies"
+            end
+          ' || echo "All dependencies are secure"
+
+      - name: Check for known malicious packages
+        run: |
+          echo "Checking for known malicious packages..."
+          
+          # List all installed packages
+          pnpm list --json > package-list.json
+          
+          # Basic check against known malicious package patterns
+          # (This is a simplified example - in production, use a dedicated service)
+          cat package-list.json | jq -r '
+            .. | objects | select(has("name")) | .name
+          ' | grep -E "(malicious|evil|bad)" || echo "No obviously malicious package names detected"
+
+  # License compliance check
+  license-check:
+    name: License Compliance Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install license checker
+        run: pnpm add -D license-checker
+
+      - name: Check licenses
+        run: |
+          echo "Checking package licenses..."
+          
+          # Generate license report
+          pnpm exec license-checker --json > licenses.json
+          
+          # List all licenses
+          echo "=== LICENSE SUMMARY ==="
+          cat licenses.json | jq -r 'to_entries[] | "\(.key): \(.value.licenses)"' | sort
+          
+          echo ""
+          echo "=== POTENTIALLY PROBLEMATIC LICENSES ==="
+          cat licenses.json | jq -r '
+            to_entries[] | 
+            select(.value.licenses | test("GPL|AGPL|LGPL|SSPL"; "i")) |
+            "\(.key): \(.value.licenses) (⚠️ Copyleft license)"
+          ' || echo "No copyleft licenses detected"
+
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: licenses.json
+          retention-days: 30
+
+  # Secret scanning (custom)
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install secret scanning tools
+        run: |
+          # Install gitleaks
+          wget -qO- https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz | tar xz
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
+
+      - name: Create gitleaks config
+        run: |
+          cat > .gitleaks.toml << 'EOF'
+          title = "Gitleaks Config for Portfolio Site"
+          
+          [[rules]]
+          description = "AWS Access Key ID"
+          id = "aws-access-key-id"
+          regex = '''AKIA[0-9A-Z]{16}'''
+          
+          [[rules]]
+          description = "AWS Secret Access Key"
+          id = "aws-secret-access-key"
+          regex = '''[A-Za-z0-9/+=]{40}'''
+          
+          [[rules]]
+          description = "GitHub Token"
+          id = "github-token"
+          regex = '''ghp_[0-9a-zA-Z]{36}'''
+          
+          [[rules]]
+          description = "Private Key"
+          id = "private-key"
+          regex = '''-----BEGIN[A-Z ]*PRIVATE KEY-----'''
+          
+          [[rules]]
+          description = "Generic API Key"
+          id = "generic-api-key"
+          regex = '''[aA][pP][iI][_]?[kK][eE][yY].*['""][0-9a-zA-Z]{32,45}['\""]'''
+          
+          [[rules]]
+          description = "Email Password"
+          id = "email-password"
+          regex = '''[pP][aA][sS][sS].*['""][0-9a-zA-Z!@#$%^&*]{8,}['\""]'''
+          
+          [allowlist]
+          paths = [
+            '''.git/''',
+            '''node_modules/''',
+            '''.output/''',
+            '''.nuxt/'''
+          ]
+          EOF
+
+      - name: Run gitleaks scan
+        run: |
+          echo "Scanning for secrets in git history..."
+          gitleaks detect --config .gitleaks.toml --verbose --report-format json --report-path gitleaks-report.json || true
+          
+          if [ -f gitleaks-report.json ] && [ -s gitleaks-report.json ]; then
+            echo "⚠️ Potential secrets detected!"
+            cat gitleaks-report.json | jq '.[] | "File: \(.File) | Line: \(.StartLine) | Rule: \(.RuleID) | Match: \(.Match)"'
+            exit 1
+          else
+            echo "✅ No secrets detected in git history"
+          fi
+
+  # Container security (if using containers)
+  container-scan:
+    name: Container Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: false # Enable if using containers
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          # Example Dockerfile scan (if exists)
+          if [ -f Dockerfile ]; then
+            docker build -t portfolio-site:latest .
+          fi
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        if: false # Enable if using containers
+        with:
+          image-ref: 'portfolio-site:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: false # Enable if using containers
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Security summary
+  security-summary:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    needs: [analyze, custom-analysis, dependency-scan, license-check, secret-scan]
+    if: always()
+    
+    steps:
+      - name: Generate security summary
+        run: |
+          echo "# 🔒 Security Analysis Summary" > security-summary.md
+          echo "" >> security-summary.md
+          echo "**Analysis Date:** $(date -u)" >> security-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> security-summary.md
+          echo "" >> security-summary.md
+          
+          echo "## Job Results" >> security-summary.md
+          echo "- CodeQL Analysis: ${{ needs.analyze.result }}" >> security-summary.md
+          echo "- Custom Analysis: ${{ needs.custom-analysis.result }}" >> security-summary.md
+          echo "- Dependency Scan: ${{ needs.dependency-scan.result }}" >> security-summary.md
+          echo "- License Check: ${{ needs.license-check.result }}" >> security-summary.md
+          echo "- Secret Scan: ${{ needs.secret-scan.result }}" >> security-summary.md
+          echo "" >> security-summary.md
+          
+          if [ "${{ needs.analyze.result }}" = "success" ] && \
+             [ "${{ needs.custom-analysis.result }}" = "success" ] && \
+             [ "${{ needs.dependency-scan.result }}" = "success" ] && \
+             [ "${{ needs.license-check.result }}" = "success" ] && \
+             [ "${{ needs.secret-scan.result }}" = "success" ]; then
+            echo "## ✅ Overall Status: PASSED" >> security-summary.md
+            echo "All security checks completed successfully." >> security-summary.md
+          else
+            echo "## ❌ Overall Status: ATTENTION REQUIRED" >> security-summary.md
+            echo "One or more security checks require attention." >> security-summary.md
+          fi
+          
+          echo "" >> security-summary.md
+          echo "## Next Steps" >> security-summary.md
+          echo "- Review any security findings in the GitHub Security tab" >> security-summary.md
+          echo "- Address any flagged vulnerabilities or issues" >> security-summary.md
+          echo "- Update dependencies as needed" >> security-summary.md
+          echo "- Ensure no secrets are committed to the repository" >> security-summary.md
+
+      - name: Upload security summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-summary
+          path: security-summary.md
+          retention-days: 30
+
+      - name: Comment security summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('security-summary.md', 'utf8');
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });

@@ -1,0 +1,430 @@
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Validate release
+  validate:
+    name: Validate Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      is_prerelease: ${{ steps.version.outputs.is_prerelease }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version information
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+            TAG="${{ github.event.inputs.version }}"
+          else
+            TAG="${{ github.ref_name }}"
+            VERSION="${TAG#v}"
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          
+          # Check if it's a prerelease
+          if [[ "$VERSION" == *"-"* ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "Release version: $VERSION"
+          echo "Release tag: $TAG"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run full test suite
+        run: |
+          echo "Running comprehensive validation..."
+          pnpm run lint
+          pnpm run type-check
+          pnpm run test:unit --coverage
+          pnpm run validate:content
+          pnpm run build
+          pnpm run generate
+
+      - name: Verify package.json version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          RELEASE_VERSION="${{ steps.version.outputs.version }}"
+          
+          if [ "v$PACKAGE_VERSION" != "${{ steps.version.outputs.tag }}" ]; then
+            echo "❌ Version mismatch!"
+            echo "Package.json version: v$PACKAGE_VERSION"
+            echo "Release tag: ${{ steps.version.outputs.tag }}"
+            exit 1
+          fi
+          
+          echo "✅ Version validation passed"
+
+  # Build release assets
+  build:
+    name: Build Release Assets
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production assets
+        run: |
+          echo "Building production assets..."
+          pnpm run generate
+          
+          # Create distributable archive
+          cd .output/public
+          zip -r ../../site-${{ needs.validate.outputs.version }}.zip .
+          cd ../..
+          
+          # Create source archive
+          git archive --format=zip --output=source-${{ needs.validate.outputs.version }}.zip HEAD
+
+      - name: Generate build manifest
+        run: |
+          cat > build-manifest.json << EOF
+          {
+            "version": "${{ needs.validate.outputs.version }}",
+            "tag": "${{ needs.validate.outputs.tag }}",
+            "commit": "${{ github.sha }}",
+            "build_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "node_version": "${{ env.NODE_VERSION }}",
+            "pnpm_version": "${{ env.PNPM_VERSION }}",
+            "is_prerelease": ${{ needs.validate.outputs.is_prerelease }},
+            "files": {
+              "site_archive": "site-${{ needs.validate.outputs.version }}.zip",
+              "source_archive": "source-${{ needs.validate.outputs.version }}.zip"
+            }
+          }
+          EOF
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets-${{ needs.validate.outputs.version }}
+          path: |
+            site-${{ needs.validate.outputs.version }}.zip
+            source-${{ needs.validate.outputs.version }}.zip
+            build-manifest.json
+          retention-days: 90
+
+  # Generate changelog
+  changelog:
+    name: Generate Changelog
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 10
+    
+    outputs:
+      changelog: ${{ steps.changelog.outputs.changelog }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "Generating changelog for ${{ needs.validate.outputs.tag }}..."
+          
+          # Get the previous tag
+          PREVIOUS_TAG=$(git tag --sort=-version:refname | grep -A1 "${{ needs.validate.outputs.tag }}" | tail -1)
+          
+          if [ -z "$PREVIOUS_TAG" ] || [ "$PREVIOUS_TAG" = "${{ needs.validate.outputs.tag }}" ]; then
+            PREVIOUS_TAG=$(git rev-list --max-parents=0 HEAD)
+            echo "No previous tag found, using initial commit"
+          fi
+          
+          echo "Comparing $PREVIOUS_TAG..${{ needs.validate.outputs.tag }}"
+          
+          # Generate changelog content
+          CHANGELOG=$(cat << 'EOF'
+          ## What's Changed
+          
+          ### 🚀 Features
+          $(git log $PREVIOUS_TAG..HEAD --oneline --grep="feat:" --pretty="* %s" | sed 's/feat: //')
+          
+          ### 🐛 Bug Fixes
+          $(git log $PREVIOUS_TAG..HEAD --oneline --grep="fix:" --pretty="* %s" | sed 's/fix: //')
+          
+          ### 🔧 Improvements
+          $(git log $PREVIOUS_TAG..HEAD --oneline --grep="chore:\|refactor:\|perf:" --pretty="* %s" | sed -E 's/(chore|refactor|perf): //')
+          
+          ### 📚 Documentation
+          $(git log $PREVIOUS_TAG..HEAD --oneline --grep="docs:" --pretty="* %s" | sed 's/docs: //')
+          
+          ### 🧪 Testing
+          $(git log $PREVIOUS_TAG..HEAD --oneline --grep="test:" --pretty="* %s" | sed 's/test: //')
+          
+          ### Other Changes
+          $(git log $PREVIOUS_TAG..HEAD --oneline --invert-grep --grep="feat:\|fix:\|chore:\|refactor:\|perf:\|docs:\|test:" --pretty="* %s")
+          
+          **Full Changelog**: [$PREVIOUS_TAG...${{ needs.validate.outputs.tag }}](https://github.com/${{ github.repository }}/compare/$PREVIOUS_TAG...${{ needs.validate.outputs.tag }})
+          EOF
+          )
+          
+          # Process the changelog to remove empty sections
+          PROCESSED_CHANGELOG=$(echo "$CHANGELOG" | sed '/^\* $/d' | sed '/^### [^[:space:]]*$/N;/\n$/d')
+          
+          # Save to file and output
+          echo "$PROCESSED_CHANGELOG" > changelog.md
+          
+          # Use heredoc to handle multiline output
+          {
+            echo 'changelog<<EOF'
+            echo "$PROCESSED_CHANGELOG"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog-${{ needs.validate.outputs.version }}
+          path: changelog.md
+          retention-days: 30
+
+  # Create GitHub release
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [validate, build, changelog]
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-assets-${{ needs.validate.outputs.version }}
+
+      - name: Download changelog
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog-${{ needs.validate.outputs.version }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.validate.outputs.tag }}
+          name: Release ${{ needs.validate.outputs.tag }}
+          body_path: changelog.md
+          prerelease: ${{ needs.validate.outputs.is_prerelease == 'true' }}
+          draft: false
+          files: |
+            site-${{ needs.validate.outputs.version }}.zip
+            source-${{ needs.validate.outputs.version }}.zip
+            build-manifest.json
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploy release (if it's not a prerelease)
+  deploy:
+    name: Deploy Release
+    runs-on: ubuntu-latest
+    needs: [validate, release]
+    if: needs.validate.outputs.is_prerelease == 'false'
+    timeout-minutes: 20
+    
+    environment:
+      name: production
+      url: https://sumitkpandit.github.io
+    
+    steps:
+      - name: Trigger deployment workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: '${{ needs.validate.outputs.tag }}'
+            });
+            
+            console.log('Deployment workflow triggered for release ${{ needs.validate.outputs.tag }}');
+
+  # Post-release tasks
+  post-release:
+    name: Post-Release Tasks
+    runs-on: ubuntu-latest
+    needs: [validate, release]
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version badge (if main release)
+        if: needs.validate.outputs.is_prerelease == 'false'
+        run: |
+          # Update README with new version badge
+          sed -i 's/Release-v[0-9.]*/Release-${{ needs.validate.outputs.tag }}/' README.md || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add README.md
+            git commit -m "docs: update version badge to ${{ needs.validate.outputs.tag }}"
+            git push
+          fi
+
+      - name: Create milestone for next version
+        if: needs.validate.outputs.is_prerelease == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ needs.validate.outputs.version }}';
+            const parts = version.split('.');
+            const nextMinor = `v${parts[0]}.${parseInt(parts[1]) + 1}.0`;
+            
+            try {
+              await github.rest.issues.createMilestone({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: nextMinor,
+                description: `Release milestone for ${nextMinor}`,
+                state: 'open'
+              });
+              console.log(`Created milestone: ${nextMinor}`);
+            } catch (error) {
+              console.log('Milestone might already exist:', error.message);
+            }
+
+      - name: Close current milestone
+        if: needs.validate.outputs.is_prerelease == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            
+            const currentMilestone = milestones.data.find(m => 
+              m.title === '${{ needs.validate.outputs.tag }}'
+            );
+            
+            if (currentMilestone) {
+              await github.rest.issues.updateMilestone({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                milestone_number: currentMilestone.number,
+                state: 'closed'
+              });
+              console.log('Closed milestone: ${{ needs.validate.outputs.tag }}');
+            }
+
+      - name: Create post-release discussion
+        if: needs.validate.outputs.is_prerelease == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.discussions.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🎉 Release ${{ needs.validate.outputs.tag }} is now available!',
+                body: `
+                Release ${{ needs.validate.outputs.tag }} has been successfully published!
+                
+                ## 🔗 Links
+                - [Release Notes](https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }})
+                - [Live Site](https://sumitkpandit.github.io)
+                - [Changelog](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
+                
+                ## 💬 Feedback
+                Please share your thoughts, report any issues, or suggest improvements!
+                
+                ---
+                *This discussion was created automatically by the release workflow.*
+                `,
+                category_id: 'general' // You may need to adjust this
+              });
+              console.log('Created release discussion');
+            } catch (error) {
+              console.log('Could not create discussion (may not be enabled):', error.message);
+            }
+
+  # Notification
+  notify:
+    name: Release Notification
+    runs-on: ubuntu-latest
+    needs: [validate, build, changelog, release]
+    if: always()
+    
+    steps:
+      - name: Success notification
+        if: needs.release.result == 'success'
+        run: |
+          echo "🎉 Release ${{ needs.validate.outputs.tag }} created successfully!"
+          echo "📦 Release URL: https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}"
+          echo "🌐 Site URL: https://sumitkpandit.github.io"
+
+      - name: Failure notification
+        if: failure()
+        run: |
+          echo "❌ Release ${{ needs.validate.outputs.tag }} failed!"
+          echo "Please check the workflow logs for details."
+          exit 1

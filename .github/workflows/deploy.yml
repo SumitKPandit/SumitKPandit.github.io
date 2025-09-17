@@ -1,0 +1,229 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Build job
+  build:
+    name: Build Static Site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: nuxt
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate content before build
+        run: pnpm run validate:content
+
+      - name: Generate static site
+        run: pnpm run generate
+        env:
+          NUXT_PUBLIC_SITE_URL: ${{ vars.NUXT_PUBLIC_SITE_URL }}
+          NUXT_PUBLIC_SITE_NAME: ${{ vars.NUXT_PUBLIC_SITE_NAME }}
+          NUXT_PUBLIC_SITE_DESCRIPTION: ${{ vars.NUXT_PUBLIC_SITE_DESCRIPTION }}
+
+      - name: Add custom domain (CNAME)
+        if: vars.CUSTOM_DOMAIN
+        run: echo "${{ vars.CUSTOM_DOMAIN }}" > .output/public/CNAME
+
+      - name: Generate robots.txt
+        run: |
+          cat > .output/public/robots.txt << EOF
+          User-agent: *
+          Allow: /
+          
+          Sitemap: ${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}/sitemap.xml
+          EOF
+
+      - name: Verify build output
+        run: |
+          echo "Build directory contents:"
+          ls -la .output/public/
+          echo ""
+          echo "Key files check:"
+          test -f .output/public/index.html && echo "✅ index.html exists"
+          test -f .output/public/blog/index.html && echo "✅ blog/index.html exists"
+          test -f .output/public/portfolio/index.html && echo "✅ portfolio/index.html exists"
+          test -f .output/public/sitemap.xml && echo "✅ sitemap.xml exists"
+          
+          echo ""
+          echo "Build size analysis:"
+          du -sh .output/public/
+          find .output/public/ -name "*.js" -exec du -sh {} \; | head -10
+          find .output/public/ -name "*.css" -exec du -sh {} \; | head -5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  # Deployment job
+  deploy:
+    name: Deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Post-deployment verification
+  verify:
+    name: Post-Deployment Verification
+    runs-on: ubuntu-latest
+    needs: deploy
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository (for scripts)
+        uses: actions/checkout@v4
+
+      - name: Wait for deployment propagation
+        run: sleep 30
+
+      - name: Verify site is accessible
+        run: |
+          SITE_URL="${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}"
+          
+          echo "Checking site accessibility: $SITE_URL"
+          
+          # Check main pages
+          curl -fsSL "$SITE_URL" > /dev/null && echo "✅ Homepage accessible"
+          curl -fsSL "$SITE_URL/blog/" > /dev/null && echo "✅ Blog accessible"
+          curl -fsSL "$SITE_URL/portfolio/" > /dev/null && echo "✅ Portfolio accessible"
+          curl -fsSL "$SITE_URL/resume/" > /dev/null && echo "✅ Resume accessible"
+          curl -fsSL "$SITE_URL/contact/" > /dev/null && echo "✅ Contact accessible"
+          
+          # Check SEO files
+          curl -fsSL "$SITE_URL/sitemap.xml" > /dev/null && echo "✅ Sitemap accessible"
+          curl -fsSL "$SITE_URL/robots.txt" > /dev/null && echo "✅ Robots.txt accessible"
+
+      - name: Check Core Web Vitals (basic)
+        run: |
+          SITE_URL="${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}"
+          
+          # Basic performance check using curl timing
+          echo "Performance check for: $SITE_URL"
+          
+          TIME_TOTAL=$(curl -o /dev/null -s -w '%{time_total}' "$SITE_URL")
+          TIME_CONNECT=$(curl -o /dev/null -s -w '%{time_connect}' "$SITE_URL")
+          
+          echo "Total time: ${TIME_TOTAL}s"
+          echo "Connect time: ${TIME_CONNECT}s"
+          
+          # Basic threshold check (should be under 3 seconds)
+          if (( $(echo "$TIME_TOTAL < 3.0" | bc -l) )); then
+            echo "✅ Basic performance check passed"
+          else
+            echo "⚠️ Performance might need optimization"
+          fi
+
+      - name: Validate HTML structure
+        run: |
+          SITE_URL="${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}"
+          
+          # Download homepage and check for essential elements
+          curl -fsSL "$SITE_URL" > homepage.html
+          
+          # Check for essential meta tags
+          grep -q '<title>' homepage.html && echo "✅ Title tag found"
+          grep -q 'meta.*description' homepage.html && echo "✅ Meta description found"
+          grep -q 'meta.*viewport' homepage.html && echo "✅ Viewport meta found"
+          grep -q 'lang=' homepage.html && echo "✅ Language attribute found"
+          
+          # Check for accessibility
+          grep -q 'role=' homepage.html && echo "✅ ARIA roles found"
+          grep -q 'alt=' homepage.html && echo "✅ Alt attributes found"
+
+      - name: Check for common issues
+        run: |
+          SITE_URL="${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}"
+          
+          # Check for 404 handling
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$SITE_URL/non-existent-page")
+          if [ "$HTTP_CODE" = "404" ]; then
+            echo "✅ 404 handling works correctly"
+          else
+            echo "⚠️ 404 handling might need attention (got $HTTP_CODE)"
+          fi
+
+  # Notify on success/failure
+  notify:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [build, deploy, verify]
+    if: always()
+    
+    steps:
+      - name: Deployment success notification
+        if: needs.deploy.result == 'success' && needs.verify.result == 'success'
+        run: |
+          SITE_URL="${{ vars.NUXT_PUBLIC_SITE_URL || 'https://sumitkpandit.github.io' }}"
+          echo "🎉 Deployment successful!"
+          echo "Site is live at: $SITE_URL"
+          echo "Commit: ${{ github.sha }}"
+          echo "Deployed at: $(date -u)"
+
+      - name: Deployment failure notification
+        if: needs.build.result == 'failure' || needs.deploy.result == 'failure'
+        run: |
+          echo "❌ Deployment failed!"
+          echo "Build result: ${{ needs.build.result }}"
+          echo "Deploy result: ${{ needs.deploy.result }}"
+          echo "Verify result: ${{ needs.verify.result }}"
+          echo "Please check the workflow logs for details."
+          exit 1

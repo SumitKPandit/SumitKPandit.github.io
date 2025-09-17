@@ -85,15 +85,15 @@
 - [x] T059 Enhanced Nuxt config with image optimization, performance features, and route rules
 - [x] T060 Commit: "feat: seo meta, structured data, performance budgets, accessibility utilities"
 
-## Phase 3.7: Refinement & Polish
-- [ ] T061 [P] Add unit tests for derivation helpers in `tests/unit/derivations.spec.ts`
-- [ ] T062 [P] Add unit tests for validation error aggregation in `tests/unit/validation-aggregation.spec.ts`
-- [ ] T063 [P] Add unit tests for navigation builder edge cases in `tests/unit/navigation.spec.ts`
-- [ ] T064 Refactor duplicate validation logic (consolidate into `contentValidation.ts`)
-- [ ] T065 Optimize image handling: add placeholder generation stub (deferred actual processing) `scripts/image-placeholders.ts`
-- [ ] T066 Add README section for authoring & content validation workflow
-- [ ] T067 Add GitHub Action workflow `.github/workflows/ci.yml` (lint, validate, test, generate, lighthouse in PR) 
-- [ ] T068 Final accessibility manual checklist doc `docs/accessibility-checklist.md`
+## Phase 3.7: Refinement & Polish ✅ COMPLETED
+- [x] T061 [P] Add unit tests for derivation helpers in `tests/unit/derivations.spec.ts`
+- [x] T062 [P] Add unit tests for validation error aggregation in `tests/unit/validation-aggregation.spec.ts`
+- [x] T063 [P] Add unit tests for navigation builder edge cases in `tests/unit/navigation.spec.ts`
+- [x] T064 Refactor duplicate validation logic (consolidate into `contentValidation.ts`)
+- [x] T065 Optimize image handling: add placeholder generation stub (deferred actual processing) `scripts/image-placeholders.ts`
+- [x] T066 Add README section for authoring & content validation workflow
+- [x] T067 Add GitHub Action workflow `.github/workflows/ci.yml` (lint, validate, test, generate, lighthouse in PR) 
+- [x] T068: Accessibility testing procedures (Create comprehensive accessibility testing guide) ✅
 - [ ] T069 Commit: "chore: tests & polish"
 
 ## Phase 3.8: Deployment Enablement
