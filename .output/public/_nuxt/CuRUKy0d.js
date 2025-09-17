@@ -1,0 +1,1 @@
+import{_ as r,c as o,a as t,o as a}from"#entry";const s={};function c(n,e){return a(),o("div",null,[...e[0]||(e[0]=[t("h1",{class:"text-4xl font-bold text-center py-16"},"Welcome",-1),t("p",{class:"text-center text-gray-600 dark:text-gray-300"}," Philosopher, Developer, Photographer ",-1)])])}const x=r(s,[["render",c]]);export{x as default};

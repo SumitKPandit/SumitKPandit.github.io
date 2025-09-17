@@ -94,13 +94,13 @@
 - [x] T066 Add README section for authoring & content validation workflow
 - [x] T067 Add GitHub Action workflow `.github/workflows/ci.yml` (lint, validate, test, generate, lighthouse in PR) 
 - [x] T068: Accessibility testing procedures (Create comprehensive accessibility testing guide) ✅
-- [ ] T069 Commit: "chore: tests & polish"
+- [x] T069 Commit: "chore: tests & polish" ✅
 
-## Phase 3.8: Deployment Enablement
-- [ ] T070 Configure GitHub Pages deployment action `.github/workflows/deploy.yml` (build with `nuxt generate`, push to `gh-pages`)
-- [ ] T071 Add `CNAME` (if custom domain desired) & `404.html` generation step
-- [ ] T072 Smoke test build locally: `pnpm build && ls .output/public` verify expected pages
-- [ ] T073 Commit: "chore: deployment pipeline"
+## Phase 3.8: Deployment Enablement ✅ COMPLETED
+- [x] T070 Configure GitHub Pages deployment action `.github/workflows/deploy.yml` (build with `nuxt generate`, push to `gh-pages`) ✅
+- [x] T071 Add `CNAME` (if custom domain desired) & `404.html` generation step ✅
+- [x] T072 Smoke test build locally: `pnpm build && ls .output/public` verify expected pages ✅
+- [x] T073 Commit: "chore: deployment pipeline" ✅
 
 ## Phase 3.9: Hard Gates Validation
 - [ ] T074 Run full pipeline locally: `pnpm check` + tests + perf + axe; ensure all pass

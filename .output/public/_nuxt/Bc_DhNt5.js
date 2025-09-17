@@ -1,0 +1,1 @@
+import{_ as s,c as o,a as t,o as r}from"#entry";const a={};function n(c,e){return r(),o("div",null,[...e[0]||(e[0]=[t("h1",{class:"text-3xl font-bold mb-8"},"Resume",-1),t("p",{class:"text-gray-600 dark:text-gray-300"},"Experience coming soon...",-1)])])}const m=s(a,[["render",n]]);export{m as default};

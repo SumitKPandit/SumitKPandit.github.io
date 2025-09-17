@@ -1,0 +1,1 @@
+import{_ as e,c as a,a as o,o as c}from"#entry";const n={};function r(s,t){return c(),a("div",null,[...t[0]||(t[0]=[o("h1",{class:"text-3xl font-bold mb-8"},"Contact",-1),o("p",{class:"text-gray-600 dark:text-gray-300"},"Contact form coming soon...",-1)])])}const f=e(n,[["render",r]]);export{f as default};
