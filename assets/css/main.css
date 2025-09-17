@@ -1,0 +1,46 @@
+@import 'tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* Focus styles */
+  *:focus {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+  }
+
+  /* Skip link */
+  .skip-link {
+    @apply absolute -top-10 left-4 z-50 bg-accent text-white px-4 py-2 rounded-md;
+    @apply focus:top-4 transition-all duration-200;
+  }
+}
+
+@layer components {
+  .prose-dark {
+    @apply prose prose-invert max-w-none;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium;
+    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-accent/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-muted/20 text-fg hover:bg-muted/30;
+  }
+}
