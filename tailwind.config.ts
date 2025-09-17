@@ -1,6 +1,4 @@
-import type { Config } from 'tailwindcss'
-
-export default <Config>{
+export default {
   darkMode: 'class',
   content: [
     './components/**/*.{js,vue,ts}',
@@ -33,7 +31,5 @@ export default <Config>{
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ]
+  plugins: []
 }

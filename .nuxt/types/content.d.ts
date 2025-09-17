@@ -1,0 +1,4 @@
+declare module '#content/server' {
+  const serverQueryContent: typeof import('/Users/sumitkumarpandit/codebase/misc/SumitKPandit.github.io/node_modules/.pnpm/@nuxt+content@2.13.4_db0@0.3.2_ioredis@5.7.0_magicast@0.3.5_nuxt@3.19.2_@parcel+watcher_898e19c0323b5a34b1ee323c7aaf981a/node_modules/@nuxt/content/dist/runtime/legacy/types').serverQueryContent
+  const parseContent: typeof import('/Users/sumitkumarpandit/codebase/misc/SumitKPandit.github.io/node_modules/.pnpm/@nuxt+content@2.13.4_db0@0.3.2_ioredis@5.7.0_magicast@0.3.5_nuxt@3.19.2_@parcel+watcher_898e19c0323b5a34b1ee323c7aaf981a/node_modules/@nuxt/content/dist/runtime/server').parseContent
+}

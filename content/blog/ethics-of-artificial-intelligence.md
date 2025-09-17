@@ -1,11 +1,23 @@
 ---
 title: "The Ethics of Artificial Intelligence"
 slug: "ethics-of-artificial-intelligence"
-publishDate: "2024-01-15"
+description: "Exploring the moral implications of creating intelligent machines and their impact on human society."  
+publishDate: "2024-01-15T00:00:00Z"
+updatedDate: "2024-01-20T00:00:00Z"
+persona: "philosopher"
 category: "philosophy"
-tags: ["ai", "ethics", "technology"]
+series: "AI Ethics Series"
+seriesOrder: 1
+tags: ["ai", "ethics", "technology", "consciousness"]
 excerpt: "Exploring the moral implications of creating intelligent machines and their impact on human society."
+featured: true
 draft: false
+readingTime: 8
+author: "Sumit Kumar Pandit"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800"
+imageAlt: "Abstract representation of artificial intelligence and ethics"
+relatedArticles: []
+externalLinks: []
 ---
 
 # The Ethics of Artificial Intelligence
