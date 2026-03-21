@@ -172,9 +172,8 @@ img {
 
 .hero-container {
   display: flex;
-  align-items: center;
-}
-.hero-image {
+  align-items: stretch;
+}.hero-image {
   flex: 0 0 45%;
   max-width: 45%;
   position: relative;
