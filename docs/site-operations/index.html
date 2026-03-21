@@ -1,0 +1,224 @@
+<h1>Site Operations Guide</h1>
+<h2>Overview</h2>
+<p>This website is built using <a href="https://www.11ty.dev/">Eleventy (11ty)</a>, a simple static site generator. It is hosted on GitHub Pages and deployed automatically using GitHub Actions.</p>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>Static Site Generator</strong>: Eleventy (11ty) v3.x</li>
+<li><strong>Hosting</strong>: GitHub Pages</li>
+<li><strong>CI/CD</strong>: GitHub Actions</li>
+<li><strong>Domain</strong>: sumitkpandit.in (custom domain via CNAME)</li>
+<li><strong>CSS</strong>: Custom stylesheet (style.css)</li>
+<li><strong>Icons</strong>: Feather Icons (via CDN)</li>
+</ul>
+<h2>How the Site is Built</h2>
+<h3>Source Files</h3>
+<p>The site is built from the following source files:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.md</code></td>
+<td>Homepage content</td>
+</tr>
+<tr>
+<td><code>about.md</code></td>
+<td>About page</td>
+</tr>
+<tr>
+<td><code>blog.md</code></td>
+<td>Blog listing page</td>
+</tr>
+<tr>
+<td><code>resume.md</code></td>
+<td>Resume page</td>
+</tr>
+<tr>
+<td><code>book.md</code></td>
+<td>Book/page</td>
+</tr>
+<tr>
+<td><code>_includes/layouts/</code></td>
+<td>11ty templates (base.njk, page.njk)</td>
+</tr>
+<tr>
+<td><code>_includes/components/</code></td>
+<td>Reusable components (header.njk, footer.njk)</td>
+</tr>
+<tr>
+<td><code>style.css</code></td>
+<td>Main stylesheet</td>
+</tr>
+<tr>
+<td><code>content/blog/*.md</code></td>
+<td>Individual blog posts</td>
+</tr>
+</tbody>
+</table>
+<h3>Build Process</h3>
+<ol>
+<li>Eleventy processes markdown files (<code>.md</code>) using Nunjucks templates (<code>.njk</code>)</li>
+<li>Templates are located in <code>_includes/layouts/</code> and <code>_includes/components/</code></li>
+<li>Output is generated in the <code>_site/</code> directory</li>
+<li>CSS and other static assets are copied as-is</li>
+</ol>
+<h3>Build Command</h3>
+<pre><code class="language-bash">npm run build
+# or
+npx @11ty/eleventy
+</code></pre>
+<h2>How the Site is Deployed</h2>
+<h3>GitHub Actions Workflow</h3>
+<p>The deployment is automated via <code>.github/workflows/eleventy.yml</code>:</p>
+<ol>
+<li><strong>Trigger</strong>: On every push to the <code>main</code> branch</li>
+<li><strong>Build</strong>: Runs <code>npm ci</code> to install dependencies, then <code>npm run build</code> to generate the site</li>
+<li><strong>Deploy</strong>: Uses <code>peaceiris/actions-gh-pages</code> to push the built site to the <code>gh-pages</code> branch</li>
+<li><strong>Serve</strong>: GitHub Pages serves content from the <code>gh-pages</code> branch</li>
+</ol>
+<h3>GitHub Pages Configuration</h3>
+<p>To view or modify the deployment settings:</p>
+<ol>
+<li>Go to: <strong>Repository Settings → Pages</strong></li>
+<li><strong>Source</strong>: &quot;Deploy from a branch&quot;</li>
+<li><strong>Branch</strong>: <code>gh-pages</code></li>
+<li><strong>Folder</strong>: <code>/ (root)</code></li>
+</ol>
+<h3>Deployment Flow</h3>
+<pre><code>Local (main branch) 
+    → git push
+        → GitHub Actions (builds 11ty)
+            → gh-pages branch (built files)
+                → GitHub Pages (serves to sumitkpandit.in)
+</code></pre>
+<h2>How to Make Changes</h2>
+<h3>Making Content Changes</h3>
+<ol>
+<li><strong>Edit source files</strong>: Modify <code>.md</code> files in the root or <code>content/blog/</code> directory</li>
+<li><strong>Test locally</strong>: Run <code>npm start</code> to preview at <code>http://localhost:8080</code></li>
+<li><strong>Commit and push</strong>: GitHub Actions will automatically build and deploy</li>
+</ol>
+<p>Example:</p>
+<pre><code class="language-bash"># Edit a file
+nano index.md
+
+# Test locally
+npm start
+
+# Commit and push
+git add .
+git commit -m &quot;Update homepage content&quot;
+git push origin main
+</code></pre>
+<h3>Making Design Changes</h3>
+<ol>
+<li><strong>Styles</strong>: Edit <code>style.css</code></li>
+<li><strong>Templates</strong>: Edit files in <code>_includes/layouts/</code> or <code>_includes/components/</code></li>
+<li><strong>Test locally</strong>: Run <code>npm start</code> to preview changes</li>
+<li><strong>Commit and push</strong></li>
+</ol>
+<h3>Adding a New Blog Post</h3>
+<p>Create a new file in <code>content/blog/</code>:</p>
+<pre><code class="language-markdown">---
+title: Your Post Title
+description: A brief description for meta tags
+date: 2026-03-21
+layout: layouts/base.njk
+---
+
+Your content here...
+</code></pre>
+<h2>Acceptance Criteria for Changes</h2>
+<p>Before pushing any changes, verify the following:</p>
+<h3>✅ Build Success</h3>
+<pre><code class="language-bash">npm run build
+# Must complete without errors
+</code></pre>
+<h3>✅ Local Preview Works</h3>
+<pre><code class="language-bash">npm start
+# Visit http://localhost:8080 and verify:
+# - All pages load correctly
+# - CSS styles are applied
+# - Navigation works
+# - No console errors
+</code></pre>
+<h3>✅ Content Checklist</h3>
+<ul>
+<li>[ ] Homepage loads with all sections</li>
+<li>[ ] About page loads</li>
+<li>[ ] Blog page loads and lists posts</li>
+<li>[ ] Resume page loads</li>
+<li>[ ] Navigation links work</li>
+<li>[ ] Mobile responsive (test at various widths)</li>
+<li>[ ] Custom fonts load (if any)</li>
+<li>[ ] Icons display correctly</li>
+</ul>
+<h3>✅ Design Checklist</h3>
+<ul>
+<li>[ ] CSS variables are properly defined</li>
+<li>[ ] Colors match the design system</li>
+<li>[ ] Typography is consistent</li>
+<li>[ ] Spacing follows the design tokens</li>
+<li>[ ] Hover/active states work</li>
+<li>[ ] Responsive breakpoints function correctly</li>
+</ul>
+<h3>✅ Technical Checklist</h3>
+<ul>
+<li>[ ] No broken links</li>
+<li>[ ] Images have alt text</li>
+<li>[ ] Meta descriptions are present</li>
+<li>[ ] Semantic HTML is used</li>
+<li>[ ] No console errors</li>
+</ul>
+<h2>Troubleshooting</h2>
+<h3>Site Down or Broken After Push</h3>
+<ol>
+<li><strong>Check GitHub Actions</strong>: Go to repository → Actions → Check for failed runs</li>
+<li><strong>Check build errors</strong>: Click on the failed workflow to see error details</li>
+<li><strong>Revert if needed</strong>:<pre><code class="language-bash">git revert HEAD
+git push origin main
+</code></pre>
+</li>
+</ol>
+<h3>CSS Not Loading</h3>
+<ol>
+<li>Ensure <code>style.css</code> is tracked in git: <code>git ls-files | grep style.css</code></li>
+<li>Verify <code>.nojekyll</code> exists to prevent Jekyll processing</li>
+<li>Check the <code>_site/style.css</code> was generated</li>
+</ol>
+<h3>Deployment Not Triggering</h3>
+<ol>
+<li>Verify workflow file exists: <code>.github/workflows/eleventy.yml</code></li>
+<li>Check that push was to <code>main</code> branch</li>
+<li>Verify GitHub Actions is enabled in repository settings</li>
+</ol>
+<h3>Custom Domain Issues</h3>
+<ol>
+<li>Verify <code>CNAME</code> file contains the correct domain</li>
+<li>Check DNS settings at your domain provider</li>
+<li>Ensure GitHub Pages source is set correctly</li>
+</ol>
+<h2>Useful Commands</h2>
+<pre><code class="language-bash"># Install dependencies
+npm install
+
+# Build the site
+npm run build
+
+# Start local server with live reload
+npm start
+
+# Clean the _site directory
+rm -rf _site &amp;&amp; npm run build
+</code></pre>
+<h2>Files to Never Modify Directly</h2>
+<ul>
+<li><code>_site/</code> directory (generated output - never edit directly)</li>
+<li>Any file in <code>gh-pages</code> branch (auto-generated by CI/CD)</li>
+</ul>
+<h2>Contact</h2>
+<p>For questions about this site, refer to the repository or contact the maintainer.</p>
