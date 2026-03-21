@@ -163,40 +163,43 @@ img {
 }
 
 /* =============================================
-   HERO SECTION - Two Column Layout
+   HERO SECTION - Two Column Split Layout
    ============================================= */
 .hero {
-  padding: var(--space-2xl) var(--space-md);
+  padding: 0;
   background-color: var(--white);
 }
 
 .hero-container {
   display: flex;
   align-items: stretch;
-  gap: 60px;
 }
 
 .hero-image {
   flex: 0 0 45%;
   max-width: 45%;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(86, 53, 30, 0.12);
+  object-position: top;
 }
+
 .hero-content {
   flex: 0 0 55%;
   max-width: 55%;
-  text-align: left;
+  padding: 60px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.hero h1 {
+}.hero h1 {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 500;
@@ -973,21 +976,32 @@ a:hover {
   }
   
   /* Hero - Stack photo on top, centered */
+  .hero {
+    padding: 0;
+  }
+  
   .hero-container {
     flex-direction: column;
-    text-align: center;
-    gap: var(--space-lg);
   }
   
   .hero-image {
-    flex: 0 0 100%;
+    flex: 0 0 auto;
     max-width: 280px;
+    max-height: 350px;
     margin: 0 auto;
+    position: relative;
+  }
+  
+  .hero-image img {
+    position: relative;
+    height: auto;
+    border-radius: 8px;
   }
   
   .hero-content {
-    flex: 0 0 100%;
+    flex: 0 0 auto;
     max-width: 100%;
+    padding: var(--space-lg) var(--space-md);
     text-align: center;
   }
   
@@ -997,8 +1011,10 @@ a:hover {
   
   .site-logo {
     font-size: 1.35rem;
-  }  .nav-toggle {
-    display: block;
+  }
+  
+  .nav-toggle {
+    display: block;    display: block;
     position: absolute;
     right: var(--space-md);
     top: var(--space-md);
@@ -1095,13 +1111,12 @@ a:hover {
     max-width: 240px;
   }
   
-  .btn {  .btn {
+  .btn {
     width: 100%;
     max-width: 280px;
     padding: 12px 20px;
     font-size: 0.68rem;
-  }
-  
+  }  
   .cta-group {
     flex-direction: column;
     align-items: center;
