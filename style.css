@@ -996,10 +996,8 @@ a:hover {
   }
   
   .site-logo {
-  .site-logo {
     font-size: 1.35rem;
-  }  
-  .nav-toggle {
+  }  .nav-toggle {
     display: block;
     position: absolute;
     right: var(--space-md);
