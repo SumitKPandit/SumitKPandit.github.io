@@ -166,15 +166,14 @@ img {
    HERO SECTION - Two Column Split Layout
    ============================================= */
 .hero {
-  padding: 0;
+  padding: 60px 0 0;
   background-color: var(--white);
 }
 
 .hero-container {
   display: flex;
-  align-items: stretch;
+  align-items: center;
 }
-
 .hero-image {
   flex: 0 0 45%;
   max-width: 45%;
