@@ -181,26 +181,18 @@ img {
 }
 
 .hero-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
 }
-
 .hero-content {
   flex: 0 0 55%;
   max-width: 55%;
   padding: 60px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
 }
-.hero h1 {
-  font-size: 2.2rem;
+
+.hero h1 {  font-size: 2.2rem;
   font-weight: 500;
   margin-bottom: var(--space-sm);
   color: var(--dark-brown);
