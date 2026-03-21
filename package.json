@@ -1,0 +1,16 @@
+{
+  "name": "sumitkpandit",
+  "version": "1.0.0",
+  "description": "Personal Website",
+  "main": "index.js",
+  "repository": "https://github.com/SumitKPandit/SumitKPandit.github.io.git",
+  "author": "Sumit Kumar Pandit",
+  "license": "None",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
