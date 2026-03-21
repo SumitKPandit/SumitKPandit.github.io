@@ -166,15 +166,14 @@ img {
    HERO SECTION - Two Column Split Layout
    ============================================= */
 .hero {
-  padding: 0;
+  padding: 0 0 60px;
   background-color: var(--white);
   min-height: 420px;
-}
-/* =============================================
+}/* =============================================
    BIO SECTION
    ============================================= */
 .bio-section {
-  padding: var(--space-xl) var(--space-md);
+  padding: 60px var(--space-md);
   background-color: var(--white);
 }
 
@@ -322,7 +321,7 @@ img {
    SECTIONS
    ============================================= */
 .section {
-  padding: var(--space-2xl) var(--space-md);
+  padding: 60px var(--space-md);
 }
 
 .section-title {
@@ -417,7 +416,7 @@ img {
 .meditation-section {
   background: var(--brand-blue);
   color: var(--white);
-  padding: var(--space-2xl) var(--space-md);
+  padding: 60px var(--space-md);
   text-align: center;
 }
 
@@ -457,7 +456,7 @@ img {
 .page-content {
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-2xl) var(--space-md);
+  padding: 60px var(--space-md);
 }
 
 .page-content > *:first-child {
@@ -851,7 +850,7 @@ img {
 .site-footer {
   background: var(--dark-brown);
   color: var(--white);
-  padding: var(--space-xl) var(--space-md);
+  padding: 60px var(--space-md);
   text-align: center;
 }
 
@@ -1008,7 +1007,7 @@ a:hover {
     margin-right: auto;
   }  
   .hero {
-    padding: var(--space-xl) var(--space-md);
+    padding: 60px var(--space-md);
   }
 }
 
@@ -1089,7 +1088,7 @@ a:hover {
   }
   
   .hero {
-    padding: var(--space-xl) var(--space-md);
+    padding: 60px var(--space-md);
   }
   
   .cta-group {
@@ -1107,7 +1106,7 @@ a:hover {
   }
   
   .page-content {
-    padding: var(--space-xl) var(--space-md);
+    padding: 60px var(--space-md);
   }
   
   .blog-grid {
