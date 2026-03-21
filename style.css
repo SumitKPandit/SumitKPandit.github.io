@@ -211,6 +211,56 @@ img {
 }
 
 /* =============================================
+   BIO SECTION
+   ============================================= */
+.bio-section {
+  padding: 60px var(--space-md);
+  background-color: var(--white);
+}
+
+.bio-text {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #6b5d4d;
+}
+
+/* =============================================
+   TESTIMONIALS GRID
+   ============================================= */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.testimonial-card {
+  background: var(--white);
+  padding: var(--space-lg) var(--space-md);
+  border-radius: 8px;
+  border-left: 3px solid var(--brand-blue);
+  box-shadow: 0 2px 12px rgba(86, 53, 30, 0.05);
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 1rem;
+  color: #6b5d4d;
+  margin-bottom: var(--space-sm);
+  line-height: 1.6;
+}
+
+.testimonial-author {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dark-brown);
+}
+/* =============================================
    BUTTONS
    ============================================= */.btn {
   display: inline-flex;
