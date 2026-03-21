@@ -1,0 +1,270 @@
+<h1>Design System</h1>
+<h2>Overview</h2>
+<p>This design system defines the visual language for sumitkpandit.github.io. It follows a classic, elegant aesthetic with serif typography and warm accents.</p>
+<hr>
+<h2>Color Palette</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--bg-color</code></td>
+<td><code>#fdfdfc</code></td>
+<td>Page background</td>
+</tr>
+<tr>
+<td><code>--text-color</code></td>
+<td><code>#2c2c2c</code></td>
+<td>Primary text</td>
+</tr>
+<tr>
+<td><code>--accent-color</code></td>
+<td><code>#a0522d</code></td>
+<td>Links, list bullets, interactive elements</td>
+</tr>
+<tr>
+<td><code>--muted-color</code></td>
+<td><code>#6b6b6b</code></td>
+<td>Secondary text, labels</td>
+</tr>
+<tr>
+<td><code>--border-color</code></td>
+<td><code>#d4d4d4</code></td>
+<td>Form inputs, dividers</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Typography</h2>
+<h3>Font Family</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Font</th>
+<th>Fallback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Body</td>
+<td>Georgia</td>
+<td>Times New Roman, serif</td>
+</tr>
+</tbody>
+</table>
+<h3>Font Sizes</h3>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h1</code></td>
+<td>2.2rem</td>
+<td>Page title</td>
+</tr>
+<tr>
+<td><code>h2</code></td>
+<td>0.85rem</td>
+<td>Section headers (uppercase)</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>1.05rem</td>
+<td>Paragraphs, lists</td>
+</tr>
+<tr>
+<td>Label</td>
+<td>0.9rem</td>
+<td>Form labels</td>
+</tr>
+<tr>
+<td>Footer</td>
+<td>0.85rem</td>
+<td>Footer text</td>
+</tr>
+</tbody>
+</table>
+<h3>Font Styles</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Weight</th>
+<th>Style</th>
+<th>Letter Spacing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h1</td>
+<td>400</td>
+<td>Italic</td>
+<td>0.02em</td>
+</tr>
+<tr>
+<td>h2</td>
+<td>400</td>
+<td>Normal</td>
+<td>0.15em</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>400</td>
+<td>Normal</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Footer</td>
+<td>400</td>
+<td>Italic</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Spacing</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--spacing-sm</code></td>
+<td>8px</td>
+<td>Small gaps</td>
+</tr>
+<tr>
+<td><code>--spacing-md</code></td>
+<td>16px</td>
+<td>Default gaps</td>
+</tr>
+<tr>
+<td><code>--spacing-lg</code></td>
+<td>24px</td>
+<td>List item spacing</td>
+</tr>
+<tr>
+<td><code>--spacing-xl</code></td>
+<td>48px</td>
+<td>Section spacing</td>
+</tr>
+<tr>
+<td><code>--spacing-2xl</code></td>
+<td>64px</td>
+<td>Major section margins</td>
+</tr>
+</tbody>
+</table>
+<h3>Page Layout</h3>
+<ul>
+<li>Max content width: 640px</li>
+<li>Horizontal padding: 32px (24px on mobile)</li>
+<li>Vertical padding: 80px (48px on mobile)</li>
+</ul>
+<hr>
+<h2>Components</h2>
+<h3>Header</h3>
+<ul>
+<li>Centered alignment</li>
+<li>64px bottom margin</li>
+<li>Title in italic serif</li>
+<li>Subtitle in muted color</li>
+</ul>
+<h3>Section</h3>
+<ul>
+<li>48px bottom margin</li>
+<li>Uppercase h2 with letter spacing</li>
+<li>Border-bottom: 1px solid border-color</li>
+</ul>
+<h3>List Items</h3>
+<ul>
+<li>16px bottom margin</li>
+<li>24px left padding for bullets</li>
+<li>Custom bullet: <code>·</code> (middle dot) in accent color</li>
+<li>Links with underline on hover</li>
+</ul>
+<h3>Form Elements</h3>
+<ul>
+<li>Input/textarea: 100% width, 12px padding</li>
+<li>Border: 1px solid border-color</li>
+<li>Focus state: accent-color border</li>
+<li>Button: dark background, light text, no border</li>
+</ul>
+<h3>Footer</h3>
+<ul>
+<li>Centered text</li>
+<li>64px top margin</li>
+<li>24px top border</li>
+<li>Muted color, italic</li>
+</ul>
+<hr>
+<h2>Responsive Breakpoints</h2>
+<table>
+<thead>
+<tr>
+<th>Breakpoint</th>
+<th>Width</th>
+<th>Adjustments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile</td>
+<td>&lt; 600px</td>
+<td>Reduced padding, smaller h1</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Usage Guidelines</h2>
+<h3>Links</h3>
+<ul>
+<li>Color: accent-color</li>
+<li>Default: no underline</li>
+<li>Hover: border-bottom appears (1px solid)</li>
+</ul>
+<h3>Buttons</h3>
+<ul>
+<li>Background: text-color</li>
+<li>Text: bg-color</li>
+<li>Padding: 12px 24px</li>
+<li>Hover: 80% opacity</li>
+</ul>
+<h3>Form Inputs</h3>
+<ul>
+<li>Background: white</li>
+<li>Border: 1px solid border-color</li>
+<li>Focus: border-color changes to accent</li>
+</ul>
+<hr>
+<h2>Accessibility</h2>
+<ul>
+<li>Minimum contrast ratio: 4.5:1 (text to background)</li>
+<li>Focus states visible on all interactive elements</li>
+<li>Semantic HTML structure (header, main, section, footer)</li>
+</ul>
+<hr>
+<h2>File Structure</h2>
+<pre><code>/
+├── style.css          # Main stylesheet (source of truth)
+├── index.html         # Website pages
+└── docs/
+    └── design-system.md  # This document
+</code></pre>
+<hr>
+<p><em>Last updated: March 2025</em></p>
