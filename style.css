@@ -163,84 +163,33 @@ img {
 }
 
 /* =============================================
-   HERO SECTION - Two Column Split Layout
+   HERO SECTION
    ============================================= */
 .hero {
-  padding: 0 0 60px;
-  background-color: var(--white);
-  min-height: 420px;
-}/* =============================================
-   BIO SECTION
-   ============================================= */
-.bio-section {
-  padding: 60px var(--space-md);
-  background-color: var(--white);
-}
-
-.bio-text {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #6b5d4d;
-}
-
-/* =============================================
-   TESTIMONIALS GRID
-   ============================================= */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
-}
-
-.testimonial-card {
-  background: var(--white);
-  padding: var(--space-lg) var(--space-md);
-  border-radius: 8px;
-  border-left: 3px solid var(--brand-blue);
-  box-shadow: 0 2px 12px rgba(86, 53, 30, 0.05);
-}
-
-.testimonial-text {
-  font-style: italic;
-  font-size: 1rem;
-  color: #6b5d4d;
-  margin-bottom: var(--space-sm);
-  line-height: 1.6;
-}
-
-.testimonial-author {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--dark-brown);
-}
-.hero-container {
   display: flex;
-  align-items: stretch;
-}.hero-image {
-  flex: 0 0 45%;
-  max-width: 45%;
-  position: relative;
-  overflow: hidden;
+  align-items: center;
+  padding: 60px 0;
+  gap: 60px;
+}
+
+.hero-image {
+  width: 45%;
+  flex-shrink: 0;
 }
 
 .hero-image img {
   width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  object-position: top;
+  height: auto;
+  display: block;
+  border-radius: 8px;
 }
+
 .hero-content {
-  flex: 0 0 55%;
-  max-width: 55%;
-  padding: 60px 40px;
 }
-.hero h1 {  font-size: 2.2rem;
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
   font-weight: 500;
   margin-bottom: var(--space-sm);
   color: var(--dark-brown);
@@ -254,15 +203,16 @@ img {
   font-weight: 400;
   margin-bottom: var(--space-md);
 }
+
 .hero .intro {
   max-width: 100%;
   margin: 0 auto var(--space-lg);
   font-size: 1.1rem;
 }
+
 /* =============================================
    BUTTONS
-   ============================================= */
-.btn {
+   ============================================= */.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
