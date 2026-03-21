@@ -197,8 +197,9 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}.hero h1 {
-  font-family: var(--font-heading);
+  align-items: flex-start;
+}
+.hero h1 {
   font-size: 2.6rem;
   font-weight: 500;
   margin-bottom: var(--space-sm);
