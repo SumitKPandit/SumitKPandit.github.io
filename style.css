@@ -166,7 +166,7 @@ img {
    HERO SECTION - Two Column Split Layout
    ============================================= */
 .hero {
-  padding: 60px 0 0;
+  padding: 60px 0 60px;
   background-color: var(--white);
 }
 
