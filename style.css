@@ -200,7 +200,7 @@ img {
   align-items: flex-start;
 }
 .hero h1 {
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 500;
   margin-bottom: var(--space-sm);
   color: var(--dark-brown);
