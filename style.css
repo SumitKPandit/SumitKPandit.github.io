@@ -1005,8 +1005,16 @@ a:hover {
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
-  }  
-  .hero {
+  }
+  
+  .testimonial-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+  
+  .testimonial-author {
+    white-space: normal;
+    word-wrap: break-word;
+  }  .hero {
     padding: 60px var(--space-md);
   }
 }
