@@ -275,12 +275,10 @@ img {
    ============================================= */
 .cta-group {
   display: flex;
-  gap: var(--space-sm);
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0 var(--space-sm);
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
 }
-
 /* =============================================
    SECTIONS
    ============================================= */
@@ -1049,6 +1047,9 @@ a:hover {
     padding: var(--space-xl) var(--space-md);
   }
   
+  .cta-group {
+    flex-direction: column;
+  }  
   .teachings-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
