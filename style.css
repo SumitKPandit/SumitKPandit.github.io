@@ -1019,34 +1019,26 @@ a:hover {
   
   /* Hero - Stack photo on top, centered */
   .hero {
-    padding: 0;
-  }
-  
-  .hero-container {
     flex-direction: column;
+    padding: 40px 0;
   }
   
   .hero-image {
-    flex: 0 0 auto;
-    max-width: 280px;
-    max-height: 350px;
+    width: 80%;
     margin: 0 auto;
-    position: relative;
   }
   
   .hero-image img {
-    position: relative;
+    width: 100%;
     height: auto;
     border-radius: 8px;
   }
   
   .hero-content {
-    flex: 0 0 auto;
-    max-width: 100%;
-    padding: var(--space-lg) var(--space-md);
+    width: 100%;
+    padding: 30px 20px;
     text-align: center;
-  }
-  
+  }  
   .site-header .container {
     justify-content: center;
   }
@@ -1056,9 +1048,8 @@ a:hover {
   }
   
   .nav-toggle {
-    display: block;    display: block;
-    position: absolute;
-    right: var(--space-md);
+    display: block;
+    position: absolute;    right: var(--space-md);
     top: var(--space-md);
   }
   
