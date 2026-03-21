@@ -24,11 +24,25 @@ Transform the personal website from a software engineer portfolio to a spiritual
 ### Key Messages
 1. **Primary**: Guide seekers through Vedanta, Yoga, and Meditation
 2. **Secondary**: Bridge ancient Indian wisdom with contemporary life
-3. **Credibility**: 11+ years professional journey now dedicated to spiritual teaching
+3. **Credibility**: 11+ years professional journey + Sadhanapada at Isha Foundation (2022)
 
 ---
 
-## 2. Site Structure
+## 2. Social Links (Priority Order)
+
+1. **YouTube**: https://www.youtube.com/@sumitkpandityt
+2. **Instagram**: https://www.instagram.com/sumitkpandit/
+3. **X (Twitter)**: https://x.com/sumitkpandit
+
+### Integration in Website
+- Footer: Social icons in priority order
+- About page: Link to YouTube for video content
+- Meditation page: Link to YouTube for guided sessions
+- Contact page: All social links
+
+---
+
+## 3. Site Structure
 
 ### Proposed Pages
 
@@ -43,7 +57,7 @@ Transform the personal website from a software engineer portfolio to a spiritual
 - Your spiritual journey
 - Mention: "By day, I work as a software engineer. By dharma, I teach."
 - Link to /resume for professional background
-- Teacher's lineage/influences
+- Teacher's lineage/influences (Isha Foundation, Sadhanapada)
 - Why you teach / dharma
 
 #### Resume (`/resume`)
@@ -65,6 +79,7 @@ Transform the personal website from a software engineer portfolio to a spiritual
 - What is Meditation
 - Techniques taught
 - Weekly Live Group Meditation: Sunday 6 PM IST
+- Link to YouTube for recorded sessions
 - Guided sessions (future)
 
 #### Blog (`/blog`)
@@ -80,10 +95,11 @@ Transform the personal website from a software engineer portfolio to a spiritual
 #### Contact (`/contact`)
 - General inquiry form
 - Workshop/class registration
+- Social media links
 
 ---
 
-## 3. Content Strategy
+## 4. Content Strategy
 
 ### About Page Content
 ```
@@ -92,17 +108,18 @@ By day, I work as a software engineer. By dharma, I teach.
 For 11 years I worked in the corporate world as a software engineer...
 [Link to /resume for full career details]
 
-The Turning Point
-----------------
-Something was missing...
+My Spiritual Journey
+------------------
+In June 2022, I started my journey as a #sadhanapada at Isha Yoga Center - 
+a 7-month residential program that changed my life completely.
 
-The Call to Teach
------------------
-I realized my dharma was to share...
+This transformative experience deepened my practice and understanding of 
+Yoga, Vedanta, and Meditation. Now I share these timeless teachings 
+to help seekers discover the truth within.
 
 What I Teach
 ------------
-- Vedanta (Philosophy of non-duality)
+- Vedanta (Philosophy of non-duality, Self-Inquiry)
 - Raja Yoga (Royal path of meditation)
 - Meditation (Techniques for self-realization)
 
@@ -112,7 +129,7 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 ### Weekly Meditation Section (site-wide)
 - **When**: Every Sunday at 6 PM IST
 - **What**: Guided meditation session
-- **Platform**: Online (specify - Zoom, Google Meet, etc.)
+- **Platform**: Online (Zoom/Google Meet - specify)
 - **CTA**: Join / Learn more
 
 ### One-on-One Sessions
@@ -125,7 +142,7 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 
 ---
 
-## 4. Design System
+## 5. Design System
 
 ### Color Palette
 | Token | Value | Usage |
@@ -155,7 +172,7 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 
 ---
 
-## 5. Technical Architecture
+## 6. Technical Architecture
 
 ### File Structure
 ```
@@ -195,7 +212,7 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 
 ---
 
-## 6. Content Format Strategy
+## 7. Content Format Strategy
 
 ### Written Content
 - Blog articles on Vedanta, Yoga, Meditation
@@ -203,24 +220,27 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 - Downloadable guides/meditations
 
 ### Video Content
-- YouTube channel integration
+- **YouTube**: https://www.youtube.com/@sumitkpandityt
 - Embedded guided meditations
 - Video blog / satsangs
 
+### Social Media
+- **Instagram**: https://www.instagram.com/sumitkpandit/
+- **X**: https://x.com/sumitkpandit
+
 ### Platform Suggestions
 - YouTube for public videos
-- Patreon/YouTube Memberships for exclusive content
 - Zoom/Google Meet for live sessions
 
 ---
 
-## 7. Phased Implementation
+## 8. Phased Implementation
 
 ### Phase 1: Foundation (Week 1)
-- [ ] Create About page with spiritual journey + link to resume
+- [ ] Create About page with spiritual journey + Sadhanapada + link to resume
 - [ ] Create /resume page with current content
 - [ ] Update homepage for spiritual focus
-- [ ] Add navigation
+- [ ] Add navigation with social links
 - [ ] Update design tokens in CSS
 
 ### Phase 2: Core Pages (Week 2)
@@ -236,7 +256,7 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 ### Phase 4: Blog & Media (Week 4)
 - [ ] Blog section
 - [ ] YouTube integration
-- [ ] Newsletter signup
+- [ ] Social media links in footer
 
 ### Phase 5: Polish (Week 5)
 - [ ] Mobile responsiveness
@@ -246,12 +266,17 @@ Weekly: Live Group Meditation - Sundays at 6 PM IST
 
 ---
 
-## 8. Implementation Notes
+## 9. Implementation Notes
 
 ### Resume Page Integration
 - URL: `/resume`
 - Content: Current homepage content (software engineering)
 - Link from About: "I work as a software engineer. [View my professional background →](/resume)"
+
+### Sadhanapada Mention
+Include in About page prominently:
+- "Sadhanapada at Isha Yoga Center (June 2022)"
+- This 7-month residential program is a key credential
 
 ### Sunday Meditation CTA
 Include on all pages:
@@ -275,14 +300,14 @@ Options for booking:
 
 ---
 
-## 9. Next Steps
+## 10. Next Steps
 
 1. Review and approve updated plan
 2. Begin Phase 1 implementation
-   - Create About page
+   - Create About page with Sadhanapada journey
    - Create Resume page
    - Update homepage
-   - Update navigation
+   - Add navigation with social links
 
 ---
 
