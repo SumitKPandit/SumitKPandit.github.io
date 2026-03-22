@@ -487,6 +487,43 @@ img {
   color: var(--brand-blue);
 }
 
+/* About Page Hero Image */
+.about-hero-image {
+  margin-bottom: var(--space-lg);
+}
+
+.about-hero-image img {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(86, 53, 30, 0.1);
+}
+
+/* About Page CTA */
+.about-cta {
+  margin-top: var(--space-xl);
+  padding: var(--space-xl) var(--space-md);
+  background: var(--light-mint);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.about-cta h2 {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--dark-brown);
+  margin-bottom: var(--space-sm);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.about-cta p {
+  margin-bottom: var(--space-lg);
+  color: #6b5d4d;
+}
 .page-content h2 {
   display: flex;
   align-items: center;

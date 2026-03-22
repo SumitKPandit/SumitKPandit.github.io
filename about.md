@@ -7,6 +7,10 @@ description: My spiritual journey and credentials
 <div class="page-content">
   <h1><i data-feather="user"></i> About Me</h1>
 
+  <div class="about-hero-image">
+    <img src="/assets/images/sumit-portrait.jpg" alt="Sumit Kumar Pandit" />
+  </div>
+
   <p>I was not a bright child. But something changed in class 7 when I discovered that excelling in studies was not as difficult as it seemed. Little did I know I was preparing to meet my first spiritual teacher.</p>
 
   <p>In class 6, I wrote an essay about the need to know "that one thing" — the fundamental reality that weaves through everything in this universe. Just as a potter knows everything made of clay by knowing clay itself, I wrote about knowing that one thing which would reveal everything there is to know. This longing stayed with me.</p>
@@ -15,7 +19,7 @@ description: My spiritual journey and credentials
 
   <p>He gave me a biography of Swami Vivekananda by Swami Nikhilananda. That was the turning point. I read the book cover to cover and was deeply inspired. I learnt meditation with him, and my sadhana began.</p>
 
-  <h2><i data-feather=" compass"></i> My Spiritual Journey So Far</h2>
+  <h2><i data-feather="compass"></i> My Spiritual Journey So Far</h2>
 
   <div class="credentials">
     <div class="credential-item">
@@ -59,4 +63,13 @@ description: My spiritual journey and credentials
   <p>I teach Vedanta, Yoga, and Meditation — the timeless paths to self-realization. I offer weekly group meditation sessions every Sunday at 6 PM IST and one-on-one sessions for deeper guidance.</p>
 
   <p>By day, I work as a Senior Software Engineer at Onclusive. <a href="/resume/"><i data-feather="arrow-right"></i> View my professional background</a></p>
+
+  <div class="about-cta">
+    <h2>Let's Connect</h2>
+    <p>Whether you're new to these paths or looking to deepen your practice, I'd be honored to guide you.</p>
+    <div class="cta-group">
+      <a href="/book/" class="btn btn-primary"><i data-feather="calendar"></i> Book 1:1 Session</a>
+      <a href="https://www.youtube.com/@sumitkpandityt" target="_blank" class="btn btn-outline"><i data-feather="play"></i> Join Sunday Meditation</a>
+    </div>
+  </div>
 </div>
