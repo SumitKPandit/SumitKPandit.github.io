@@ -5,16 +5,18 @@ description: Guiding seekers on the path of Self-Realization through Vedanta, Yo
 ---
 
 <div class="hero">
-  <div class="hero-image">
-    <img src="/assets/images/sumit-portrait.jpg" alt="Sumit Kumar Pandit" />
-  </div>
-  <div class="hero-content">
-    <h1>Sumit Kumar Pandit</h1>
-    <p class="tagline">Guiding seekers on the path of Self-Realization</p>
-    <p class="intro">I teach Vedanta, Yoga, and Meditation — the timeless paths to discover the truth within.</p>
-    <div class="cta-group">
-      <a href="/about/" class="btn btn-primary"><i data-feather="user"></i> About Me</a>
-      <a href="https://www.youtube.com/@sumitkpandityt" target="_blank" class="btn btn-outline"><i data-feather="play"></i> Join Sunday Meditation</a>
+  <div class="container hero-container">
+    <div class="hero-image">
+      <img src="/assets/images/sumit-portrait.jpg" alt="Sumit Kumar Pandit" />
+    </div>
+    <div class="hero-content">
+      <h1>Sumit Kumar Pandit</h1>
+      <p class="tagline">Guiding seekers on the path of Self-Realization</p>
+      <p class="intro">I teach Vedanta, Yoga, and Meditation — the timeless paths to discover the truth within.</p>
+      <div class="cta-group">
+        <a href="/about/" class="btn btn-primary"><i data-feather="user"></i> About Me</a>
+        <a href="https://www.youtube.com/@sumitkpandityt" target="_blank" class="btn btn-outline"><i data-feather="play"></i> Join Sunday Meditation</a>
+      </div>
     </div>
   </div>
 </div>
@@ -65,7 +67,7 @@ description: Guiding seekers on the path of Self-Realization through Vedanta, Yo
         <div class="card-icon"><i data-feather="wind"></i></div>
         <h3>Meditation</h3>
         <p>Techniques for self-realization. Still the mind, know the self.</p>
-        <a href="/blog/meditation/" class="link">Learn more <i data-feather="arrow-right"></i></a>
+        <a href="/blog/meditation/" class="link">Learn more <i data-feighter-arrow-right"></i></a>
       </div>
     </div>
   </div>
