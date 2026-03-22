@@ -18,6 +18,31 @@ module.exports = function(eleventyConfig) {
     });
   });
   
+  // Category-specific collections
+  eleventyConfig.addCollection("vedantaPosts", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/posts/*.md").filter(function(post) {
+      return post.data.category === "Vedanta";
+    }).sort((a, b) => {
+      return b.date - a.date;
+    });
+  });
+  
+  eleventyConfig.addCollection("yogaPosts", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/posts/*.md").filter(function(post) {
+      return post.data.category === "Yoga";
+    }).sort((a, b) => {
+      return b.date - a.date;
+    });
+  });
+  
+  eleventyConfig.addCollection("meditationPosts", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/posts/*.md").filter(function(post) {
+      return post.data.category === "Meditation";
+    }).sort((a, b) => {
+      return b.date - a.date;
+    });
+  });
+  
   return {
     dir: {
       output: "_site"

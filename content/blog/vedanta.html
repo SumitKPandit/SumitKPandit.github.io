@@ -8,7 +8,7 @@ permalink: /blog/vedanta/
 ---
 
 <div class="page-content">
-  <h1>Vedanta</h1>
+  <h1><i data-feather="eye"></i> Vedanta</h1>
 
   <p>Vedanta is one of the six systems of Indian philosophy. The word Vedanta literally means "the end of the Vedas" and refers to the philosophical teachings found in the Upanishads.</p>
 
@@ -28,5 +28,17 @@ permalink: /blog/vedanta/
     <div class="credential-item">Bhagavad Gita wisdom</div>
   </div>
 
-  <p style="margin-top: var(--space-lg);">More articles coming soon.</p>
+  {% if collections.vedantaPosts.length > 0 %}
+  <div class="posts-grid">
+    {% for post in collections.vedantaPosts %}
+    <article class="post-card">
+      <span class="post-category vedanta">{{ post.data.category }}</span>
+      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <p class="post-date">{{ post.date | dateDisplay }}</p>
+      <p class="post-excerpt">{{ post.data.excerpt }}</p>
+      <a href="{{ post.url }}" class="read-more">Read more <i data-feather="arrow-right"></i></a>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>

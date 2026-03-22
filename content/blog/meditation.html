@@ -32,5 +32,17 @@ permalink: /blog/meditation/
     <div class="credential-item"><strong>Self-Inquiry</strong><span>"Who am I?" meditation</span></div>
   </div>
 
-  <p style="margin-top: var(--space-lg);">Interested in one-on-one meditation guidance? <a href="/book/"><i data-feather="arrow-right"></i> Book a session</a></p>
+  {% if collections.meditationPosts.length > 0 %}
+  <div class="posts-grid">
+    {% for post in collections.meditationPosts %}
+    <article class="post-card">
+      <span class="post-category meditation">{{ post.data.category }}</span>
+      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <p class="post-date">{{ post.date | dateDisplay }}</p>
+      <p class="post-excerpt">{{ post.data.excerpt }}</p>
+      <a href="{{ post.url }}" class="read-more">Read more <i data-feather="arrow-right"></i></a>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>

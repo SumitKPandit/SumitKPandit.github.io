@@ -8,7 +8,7 @@ permalink: /blog/yoga/
 ---
 
 <div class="page-content">
-  <h1>Yoga</h1>
+  <h1><i data-feather="sun"></i> Yoga</h1>
 
   <p>Yoga is a holistic system for attaining spiritual realization. The word "Yoga" means union — the union of the individual self with the universal self.</p>
 
@@ -26,4 +26,18 @@ permalink: /blog/yoga/
   <h2>My Training</h2>
   <p>I am a certified Yoga Teacher (YTT200) trained in Bengaluru under Teacher Ongkit Lepcha (Oct 2023 - Feb 2024).</p>
   <p>I also practice Shambhavi Mahamudra Kriya.</p>
+
+  {% if collections.yogaPosts.length > 0 %}
+  <div class="posts-grid">
+    {% for post in collections.yogaPosts %}
+    <article class="post-card">
+      <span class="post-category yoga">{{ post.data.category }}</span>
+      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <p class="post-date">{{ post.date | dateDisplay }}</p>
+      <p class="post-excerpt">{{ post.data.excerpt }}</p>
+      <a href="{{ post.url }}" class="read-more">Read more <i data-feather="arrow-right"></i></a>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
