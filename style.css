@@ -691,6 +691,27 @@ img {
   margin: 0;
 }
 
+.exp-bullets {
+  list-style: none;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+}
+
+.exp-bullets li {
+  font-size: 0.95rem;
+  color: #6b5d4d;
+  line-height: 1.6;
+  margin-bottom: var(--space-xs);
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.exp-bullets li::before {
+  content: "✦";
+  color: var(--brand-blue);
+  position: absolute;
+  left: 0;
+}
 /* =============================================
    SKILLS GRID
    ============================================= */
