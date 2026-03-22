@@ -166,27 +166,36 @@ img {
    HERO SECTION
    ============================================= */
 .hero {
+  padding: 0 0 60px;
+  background-color: var(--white);
+  min-height: 420px;
+}
+
+.hero-container {
   display: flex;
-  align-items: center;
-  padding: 60px 0;
-  gap: 60px;
+  align-items: stretch;
 }
 
 .hero-image {
-  width: 45%;
-  flex-shrink: 0;
+  flex: 0 0 45%;
+  max-width: 45%;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-image img {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: top;
 }
 
 .hero-content {
-  flex: 1;
+  flex: 0 0 55%;
+  max-width: 55%;
+  padding: 60px 40px;
 }
+
 .hero h1 {
   font-family: var(--font-heading);
   font-size: 2.2rem;
@@ -209,7 +218,6 @@ img {
   margin: 0 auto var(--space-lg);
   font-size: 1.1rem;
 }
-
 /* =============================================
    BIO SECTION
    ============================================= */
@@ -1026,28 +1034,30 @@ a:hover {
   }
   
   /* Hero - Stack photo on top, centered */
-  .hero {
+  .hero-container {
     flex-direction: column;
-    padding: 40px 0;
   }
   
   .hero-image {
-    width: 80%;
+    flex: 0 0 auto;
+    max-width: 280px;
+    max-height: 350px;
     margin: 0 auto;
+    position: relative;
   }
   
   .hero-image img {
-    width: 100%;
+    position: relative;
     height: auto;
     border-radius: 8px;
   }
   
   .hero-content {
-    width: 100%;
-    padding: 30px 20px;
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: var(--space-lg) var(--space-md);
     text-align: center;
-  }  
-  .site-header .container {
+  }  .site-header .container {
     justify-content: center;
   }
   
