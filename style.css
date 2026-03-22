@@ -925,11 +925,21 @@ img {
    ============================================= */
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
   margin-top: var(--space-lg);
 }
 
+.post-card {
+  background: var(--light-mint);
+  padding: var(--space-lg) var(--space-md);
+  border-radius: 8px;
+  border-left: 3px solid var(--brand-blue);
+  box-shadow: 0 2px 12px rgba(86, 53, 30, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .post-card {
   background: var(--white);
   padding: var(--space-lg);
@@ -1003,8 +1013,8 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  margin-top: auto;
 }
-
 .read-more:hover {
   color: var(--warm-orange);
 }
