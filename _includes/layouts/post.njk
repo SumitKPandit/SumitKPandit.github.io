@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="page-content blog-post">
+  <p class="back-link"><a href="/blog/"><i data-feather="arrow-left"></i> Back to Blog</a></p>
+  
+  <header class="post-header">
+    <span class="post-category">{{ category }}</span>
+    <h1>{{ title }}</h1>
+    <p class="post-date">{{ date | dateDisplay }}</p>
+  </header>
+
+  <article class="post-content">
+    {{ content | safe }}
+  </article>
+
+  <footer class="post-footer">
+    <div class="about-cta">
+      <p>Ready to begin your journey?</p>
+      <div class="cta-group">
+        <a href="/book/" class="btn btn-primary"><i data-feather="calendar"></i> Book 1:1 Session</a>
+        <a href="https://www.youtube.com/@sumitkpandityt" target="_blank" class="btn btn-outline"><i data-feather="play"></i> Join Sunday Meditation</a>
+      </div>
+    </div>
+  </footer>
+</div>

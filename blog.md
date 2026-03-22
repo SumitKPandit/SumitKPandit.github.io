@@ -9,21 +9,22 @@ description: Articles on Vedanta, Yoga, and Meditation
   
   <p>Articles on Vedanta, Yoga, and Meditation — the timeless paths to self-realization.</p>
 
-  <div class="blog-grid">
-    <div class="blog-card">
-      <div class="card-icon"><i data-feather="eye"></i></div>
-      <h3><a href="/blog/vedanta/">Vedanta</a></h3>
-      <p>The philosophy of non-duality. Understanding the nature of reality and the self.</p>
-    </div>
-    <div class="blog-card">
-      <div class="card-icon"><i data-feather="sun"></i></div>
-      <h3><a href="/blog/yoga/">Yoga</a></h3>
-      <p>The royal path of meditation. Union of body, mind, and spirit.</p>
-    </div>
-    <div class="blog-card">
-      <div class="card-icon"><i data-feather="wind"></i></div>
-      <h3><a href="/blog/meditation/">Meditation</a></h3>
-      <p>Techniques for self-realization. Still the mind, know the self.</p>
-    </div>
+  <div class="blog-filters">
+    <a href="/blog/" class="filter-link active">All</a>
+    <a href="/blog/vedanta/" class="filter-link">Vedanta</a>
+    <a href="/blog/yoga/" class="filter-link">Yoga</a>
+    <a href="/blog/meditation/" class="filter-link">Meditation</a>
+  </div>
+
+  <div class="posts-grid">
+    {% for post in collections.posts %}
+    <article class="post-card">
+      <span class="post-category {{ post.data.category | lower }}">{{ post.data.category }}</span>
+      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <p class="post-date">{{ post.date | dateDisplay }}</p>
+      <p class="post-excerpt">{{ post.data.excerpt }}</p>
+      <a href="{{ post.url }}" class="read-more">Read more <i data-feather="arrow-right"></i></a>
+    </article>
+    {% endfor %}
   </div>
 </div>
