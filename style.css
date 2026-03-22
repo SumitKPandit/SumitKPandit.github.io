@@ -940,13 +940,6 @@ img {
   flex-direction: column;
   height: 100%;
 }
-.post-card {
-  background: var(--white);
-  padding: var(--space-lg);
-  border-radius: 8px;
-  border-left: 3px solid var(--brand-blue);
-  box-shadow: 0 2px 12px rgba(86, 53, 30, 0.05);
-}
 
 .post-category {
   display: inline-block;
