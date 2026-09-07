@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumit Kumar Pandit — Senior Software Engineer</title>
+<meta name="description" content="Sumit Kumar Pandit — Senior Software Engineer, full-stack development and technical leadership.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111318;
+    --surface: #191C22;
+    --line: #2B2F38;
+    --text: #F4F1EA;
+    --text-dim: #7D8290;
+    --accent: #C9A15F;
+    --serif: 'Fraunces', serif;
+    --sans: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: #14161A; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(17, 19, 24, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-mark {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .nav-mark span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13.5px;
+    text-decoration: none;
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 100px 0 64px;
+    display: block;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-eyebrow .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5.5vw, 4rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    max-width: 14ch;
+  }
+  .hero-statement {
+    margin-top: 26px;
+    font-size: 19px;
+    line-height: 1.65;
+    max-width: 52ch;
+    color: var(--text-dim);
+  }
+  .hero-statement strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .hero-facts {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 32px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .hero-facts a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .hero-facts a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section {
+    padding: 76px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+  }
+  .section-index {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-top: 6px;
+  }
+  .section-index .n { color: var(--accent); }
+  .section-body h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 640px) {
+    section { grid-template-columns: 1fr; }
+    .section-index { padding-top: 0; margin-bottom: -10px; }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about p {
+    max-width: 62ch;
+    color: var(--text-dim);
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .about p + p { margin-top: 20px; }
+  .about strong { color: var(--text); font-weight: 500; }
+
+  /* ---------- EXPERIENCE ---------- */
+  .role {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .role:first-child { border-top: none; padding-top: 0; }
+  .role-years {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-top: 4px;
+  }
+  .role.current .role-years { color: var(--accent); }
+  .role-company {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .role-title {
+    font-size: 14.5px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .role ul { list-style: none; max-width: 60ch; }
+  .role li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 9px;
+    color: var(--text-dim);
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+  .role li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 1px;
+    background: var(--text-dim);
+  }
+  .role li:last-child { margin-bottom: 0; }
+
+  @media (max-width: 640px) {
+    .role { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 40px;
+  }
+  .skill-group dt {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .skill-group dd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  .tag {
+    font-size: 14px;
+    color: var(--text);
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- RECOGNITION ---------- */
+  .recognition-list { display: flex; flex-direction: column; }
+  .recognition-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .recognition-row:first-child { border-top: none; }
+  .recognition-row .title { font-size: 16px; color: var(--text); }
+  .recognition-row .org { font-family: var(--mono); font-size: 12.5px; color: var(--text-dim); }
+  .recognition-row .year { font-family: var(--mono); font-size: 12.5px; color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .recognition-row { grid-template-columns: 1fr auto; }
+    .recognition-row .org { grid-column: 1 / 2; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact p {
+    max-width: 56ch;
+    color: var(--text-dim);
+    font-size: 18px;
+    margin-bottom: 36px;
+    line-height: 1.75;
+  }
+  .contact-cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 14px;
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .contact-cta:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-cta .arrow { font-family: var(--sans); font-size: 0.55em; }
+  .contact-secondary {
+    margin-top: 28px;
+    display: flex;
+    gap: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .contact-secondary a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .contact-secondary a:hover { color: var(--text); border-color: var(--line); }
+
+  footer {
+    padding: 36px 0 60px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">sumitkpandit<span>.in</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="hero" id="top" style="border-top:none;">
+    <div class="hero-eyebrow"><span class="dot"></span>Open to Engineering Manager &amp; senior IC roles</div>
+    <h1 class="hero-name">Sumit Kumar Pandit</h1>
+    <p class="hero-statement">Senior Software Engineer with <strong>11+ years</strong> in full-stack development, currently carrying <strong>Team Lead</strong> scope ahead of a move into engineering management.</p>
+    <div class="hero-facts">
+      <span>Bengaluru, India</span>
+      <span>4 companies · 11+ years</span>
+      <a href="https://linkedin.com/in/sumitkpandit" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="#contact">Get in touch ↓</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-index"><span class="n">01</span> — About</div>
+    <div class="section-body about">
+      <h2>Building things that hold up under real usage.</h2>
+      <p>I build client-facing full-stack applications end to end — from architecture through production launch. For the past two years I've been running technical direction and sprint planning for a cross-functional team in a de facto Team Lead capacity, ahead of a formal transition into an <strong>Engineering Manager</strong> role.</p>
+      <p>My background spans consumer-facing SaaS at Onclusive, healthcare systems at Cerner, database and reporting engineering at EY, and large-scale SAP implementations at IBM. Mentoring has been a constant thread through every one of them.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-index"><span class="n">02</span> — Experience</div>
+    <div class="section-body">
+      <h2>Four companies, one throughline.</h2>
+
+      <div class="role current">
+        <div class="role-years">2022 —<br>Present</div>
+        <div>
+          <div class="role-company">Onclusive India</div>
+          <div class="role-title">Senior Software Engineer</div>
+          <ul>
+            <li>Serving in a de facto Team Lead capacity — owning technical direction, sprint planning, and delivery quality for a cross-functional team.</li>
+            <li>Architected and shipped Onclusive 360, the company's flagship self-serve media monitoring platform, from concept through production release.</li>
+            <li>Delivered the Editorial Tool, an internal web application, end to end — from initial design through production launch.</li>
+            <li>Driving the Unified Product initiative, consolidating Onclusive's suite of offerings into a single, cohesive platform experience.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-years">2020 —<br>2022</div>
+        <div>
+          <div class="role-company">Cerner Corporation</div>
+          <div class="role-title">Senior Software Engineer → Software Engineer III</div>
+          <ul>
+            <li>Designed and delivered end-to-end software enhancements — analysis, design, coding, debugging, and testing — balancing new capability against long-term maintainability.</li>
+            <li>Designed the workflow for enabling and disabling health record features on the patient portal, and built the history view for the results applet.</li>
+            <li>Provided high-level architecture guidance and led process-improvement initiatives across development, deployment, and monitoring.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-years">2018 —<br>2020</div>
+        <div>
+          <div class="role-company">EY GDS India</div>
+          <div class="role-title">Consultant I</div>
+          <ul>
+            <li>Improved core database procedure performance by 60% through targeted optimization of SQLScript statements.</li>
+            <li>Delivered technical designs and unit-tested code against functional specs, supporting business users through design reviews, FUTs, and UATs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-years">2014 —<br>2018</div>
+        <div>
+          <div class="role-company">IBM India</div>
+          <div class="role-title">Associate System Engineer → Senior System Engineer</div>
+          <ul>
+            <li>Contributed to end-to-end SAP implementation projects for Matthews International, Tapestry Inc., and Zalora.</li>
+            <li>Developed reports, interfaces, conversions, enhancements, and forms (RICEF) across MM, PP, PS, OTC, RTR, and RTC modules.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-index"><span class="n">03</span> — Skills</div>
+    <div class="section-body">
+      <h2>The stack, end to end.</h2>
+      <dl class="skills-grid">
+        <div class="skill-group">
+          <dt>Languages</dt>
+          <dd>
+            <span class="tag">JavaScript</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">Ruby</span>
+            <span class="tag">ABAP</span>
+          </dd>
+        </div>
+        <div class="skill-group">
+          <dt>Frontend</dt>
+          <dd>
+            <span class="tag">React</span>
+            <span class="tag">Redux</span>
+            <span class="tag">Vue</span>
+            <span class="tag">Nuxt</span>
+            <span class="tag">Pinia</span>
+            <span class="tag">Vite</span>
+            <span class="tag">SASS</span>
+          </dd>
+        </div>
+        <div class="skill-group">
+          <dt>Backend &amp; APIs</dt>
+          <dd>
+            <span class="tag">REST APIs</span>
+            <span class="tag">Ruby on Rails</span>
+            <span class="tag">NestJS</span>
+            <span class="tag">OOP</span>
+          </dd>
+        </div>
+        <div class="skill-group">
+          <dt>Data &amp; tools</dt>
+          <dd>
+            <span class="tag">MySQL</span>
+            <span class="tag">SAP (RICEF)</span>
+            <span class="tag">Git</span>
+            <span class="tag">Jenkins</span>
+            <span class="tag">Jest</span>
+          </dd>
+        </div>
+        <div class="skill-group">
+          <dt>Leadership</dt>
+          <dd>
+            <span class="tag">Technical direction</span>
+            <span class="tag">Sprint planning</span>
+            <span class="tag">Mentoring</span>
+            <span class="tag">Architecture reviews</span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="recognition">
+    <div class="section-index"><span class="n">04</span> — Recognition</div>
+    <div class="section-body">
+      <h2>Along the way.</h2>
+      <div class="recognition-list">
+        <div class="recognition-row"><span class="title">Prod Champion</span><span class="org">Cerner</span><span class="year">2022</span></div>
+        <div class="recognition-row"><span class="title">Manager Recognition</span><span class="org">Cerner</span><span class="year">2021</span></div>
+        <div class="recognition-row"><span class="title">Star of the Week</span><span class="org">Cerner</span><span class="year">2020</span></div>
+        <div class="recognition-row"><span class="title">Onsite Recognition Award</span><span class="org">EY</span><span class="year">2020</span></div>
+        <div class="recognition-row"><span class="title">Eminence &amp; Excellence Award</span><span class="org">IBM</span><span class="year">2017</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-index"><span class="n">05</span> — Contact</div>
+    <div class="section-body contact">
+      <h2>Let's talk.</h2>
+      <p>Open to conversations about engineering leadership roles, full-stack opportunities, or just talking shop.</p>
+      <a class="contact-cta" href="#" id="email-cta">Say hello <span class="arrow">→</span></a>
+      <div class="contact-secondary">
+        <a href="https://linkedin.com/in/sumitkpandit" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <span>Bengaluru, India</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>Sumit Kumar Pandit</span>
+    <span>Built &amp; maintained personally</span>
+  </div>
+</footer>
+
+<script>
+  // Lightly obfuscated mailto to deter basic scrapers while staying one click for humans.
+  (function () {
+    var u = "panditsumitkumar";
+    var d = "gmail.com";
+    var link = document.getElementById("email-cta");
+    link.setAttribute("href", "mailto:" + u + "@" + d);
+  })();
+</script>
+
+</body>
+</html>
