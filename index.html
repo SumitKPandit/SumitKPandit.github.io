@@ -19,11 +19,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #111318;
-    --surface: #191C22;
-    --line: #2B2F38;
-    --text: #F4F1EA;
-    --text-dim: #7D8290;
+    --bg: #0E0F13;
+    --surface: #16181F;
+    --line: #262A33;
+    --text: #F2EEE4;
+    --text-dim: #8A8F9C;
     --accent: #C9A15F;
     --serif: 'Fraunces', serif;
     --sans: 'Inter', sans-serif;
@@ -36,6 +36,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
   }
 
   body {
@@ -49,320 +50,114 @@
   }
 
   a { color: inherit; }
-  ::selection { background: var(--accent); color: #14161A; }
+  ::selection { background: var(--accent); color: #0E0F13; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  .wrap {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 56px; }
 
-  /* ---------- NAV ---------- */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(17, 19, 24, 0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-inner {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 18px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .nav-mark {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-dim);
-  }
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 10; background: rgba(14,15,19,0.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-inner { max-width: 1120px; margin: 0 auto; padding: 20px 56px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .nav-mark { font-family: var(--mono); font-size: 13px; color: var(--text-dim); letter-spacing: 0.02em; }
   .nav-mark span { color: var(--accent); }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a {
-    font-size: 13.5px;
-    text-decoration: none;
-    color: var(--text-dim);
-    transition: color 0.15s ease;
-  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 13px; text-decoration: none; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.15s ease; }
   .nav-links a:hover { color: var(--text); }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 100px 0 64px;
-    display: block;
-  }
-  .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .hero-eyebrow .dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .hero-name {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(2.6rem, 5.5vw, 4rem);
-    line-height: 1.08;
-    letter-spacing: -0.015em;
-    color: var(--text);
-    max-width: 14ch;
-  }
-  .hero-statement {
-    margin-top: 26px;
-    font-size: 19px;
-    line-height: 1.65;
-    max-width: 52ch;
-    color: var(--text-dim);
-  }
-  .hero-statement strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-  .hero-facts {
-    margin-top: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 32px;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-  }
-  .hero-facts a {
-    color: var(--text-dim);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .hero-facts a:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ---------- SECTION SHELL ---------- */
-  section {
-    padding: 76px 0;
-    border-top: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 24px;
-  }
-  .section-index {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    padding-top: 6px;
-  }
-  .section-index .n { color: var(--accent); }
-  .section-body h2 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-    margin-bottom: 32px;
-    letter-spacing: -0.01em;
-  }
-
-  @media (max-width: 640px) {
-    section { grid-template-columns: 1fr; }
-    .section-index { padding-top: 0; margin-bottom: -10px; }
-  }
-
-  /* ---------- ABOUT ---------- */
-  .about p {
-    max-width: 62ch;
-    color: var(--text-dim);
-    font-size: 18px;
-    line-height: 1.8;
-  }
-  .about p + p { margin-top: 20px; }
-  .about strong { color: var(--text); font-weight: 500; }
-
-  /* ---------- EXPERIENCE ---------- */
-  .role {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 24px;
-    padding: 32px 0;
-    border-top: 1px solid var(--line);
-  }
-  .role:first-child { border-top: none; padding-top: 0; }
-  .role-years {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    padding-top: 4px;
-  }
-  .role.current .role-years { color: var(--accent); }
-  .role-company {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .role-title {
-    font-size: 14.5px;
-    color: var(--accent);
-    margin-bottom: 14px;
-  }
-  .role ul { list-style: none; max-width: 60ch; }
-  .role li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 9px;
-    color: var(--text-dim);
-    font-size: 15.5px;
-    line-height: 1.7;
-  }
-  .role li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 5px;
-    height: 1px;
-    background: var(--text-dim);
-  }
-  .role li:last-child { margin-bottom: 0; }
-
-  @media (max-width: 640px) {
-    .role { grid-template-columns: 1fr; gap: 6px; }
-  }
-
-  /* ---------- SKILLS ---------- */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 36px 40px;
-  }
-  .skill-group dt {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .skill-group dd {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-  }
-  .tag {
-    font-size: 14px;
-    color: var(--text);
-    padding: 6px 12px;
-    border: 1px solid var(--line);
-    border-radius: 2px;
-  }
-
-  @media (max-width: 640px) {
-    .skills-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ---------- RECOGNITION ---------- */
-  .recognition-list { display: flex; flex-direction: column; }
-  .recognition-row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 16px;
-    padding: 14px 0;
-    border-top: 1px solid var(--line);
-    align-items: baseline;
-  }
-  .recognition-row:first-child { border-top: none; }
-  .recognition-row .title { font-size: 16px; color: var(--text); }
-  .recognition-row .org { font-family: var(--mono); font-size: 12.5px; color: var(--text-dim); }
-  .recognition-row .year { font-family: var(--mono); font-size: 12.5px; color: var(--accent); }
-
-  @media (max-width: 640px) {
-    .recognition-row { grid-template-columns: 1fr auto; }
-    .recognition-row .org { grid-column: 1 / 2; }
-  }
-
-  /* ---------- CONTACT ---------- */
-  .contact p {
-    max-width: 56ch;
-    color: var(--text-dim);
-    font-size: 18px;
-    margin-bottom: 36px;
-    line-height: 1.75;
-  }
-  .contact-cta {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 14px;
-    font-family: var(--serif);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 500;
-    color: var(--text);
-    text-decoration: none;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--line);
-    transition: border-color 0.2s ease, color 0.2s ease;
-  }
-  .contact-cta:hover { border-color: var(--accent); color: var(--accent); }
-  .contact-cta .arrow { font-family: var(--sans); font-size: 0.55em; }
-  .contact-secondary {
-    margin-top: 28px;
-    display: flex;
-    gap: 28px;
-    font-family: var(--mono);
-    font-size: 13px;
-  }
-  .contact-secondary a {
-    color: var(--text-dim);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-  }
-  .contact-secondary a:hover { color: var(--text); border-color: var(--line); }
-
-  [data-theme="light"] {
-    --bg: #F4F1EA;
-    --surface: #EAE6DD;
-    --line: #D6D0C4;
-    --text: #14161A;
-    --text-dim: #5A5E68;
-    --accent: #8A6A2F;
-  }
-  body { transition: background 0.2s ease, color 0.2s ease; }
-
-  .theme-toggle, .nav-toggle {
-    background: none;
-    border: 1px solid var(--line);
-    color: var(--text-dim);
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 6px 10px;
-    cursor: pointer;
-    border-radius: 2px;
-  }
+  .theme-toggle, .nav-toggle { background: none; border: 1px solid var(--line); color: var(--text-dim); font-family: var(--mono); font-size: 11px; padding: 6px 12px; cursor: pointer; border-radius: 0; text-transform: uppercase; letter-spacing: 0.1em; }
   .theme-toggle:hover, .nav-toggle:hover { color: var(--text); border-color: var(--accent); }
   .nav-toggle { display: none; }
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .nav-toggle { display: inline-block; }
     .nav-links { display: none; }
-    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; right: 40px; background: var(--surface); border: 1px solid var(--line); padding: 12px 16px; gap: 12px; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; right: 24px; background: var(--surface); border: 1px solid var(--line); padding: 16px 20px; gap: 14px; }
   }
 
-  footer {
-    padding: 36px 0 60px;
+  /* HERO */
+  .hero { padding: 96px 0 80px; border-top: none; }
+  .hero-eyebrow { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 32px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.14em; }
+  .hero-eyebrow .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .terminal {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 20px 24px;
     font-family: var(--mono);
-    font-size: 11.5px;
+    font-size: 14px;
+    line-height: 1.7;
     color: var(--text-dim);
-    border-top: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
+    max-width: 640px;
+    margin-bottom: 40px;
+    min-height: 92px;
   }
+  .terminal .prompt { color: var(--accent); }
+  .terminal .cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); vertical-align: middle; margin-left: 2px; animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-name { font-family: var(--serif); font-weight: 500; font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--text); max-width: 12ch; }
+  .hero-statement { margin-top: 28px; font-size: 20px; line-height: 1.6; max-width: 56ch; color: var(--text-dim); }
+  .hero-statement strong { color: var(--text); font-weight: 500; }
+  .hero-facts { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 8px 40px; font-family: var(--mono); font-size: 12px; color: var(--text-dim); padding-top: 28px; border-top: 1px solid var(--line); text-transform: uppercase; letter-spacing: 0.1em; }
+  .hero-facts a { color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color 0.15s ease, border-color 0.15s ease; }
+  .hero-facts a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* SECTION */
+  section { padding: 96px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 120px 1fr; gap: 32px; }
+  .section-index { font-family: var(--mono); font-size: 12px; color: var(--text-dim); padding-top: 8px; text-transform: uppercase; letter-spacing: 0.12em; }
+  .section-index .n { color: var(--accent); }
+  .section-body h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 40px; letter-spacing: -0.015em; line-height: 1.1; }
+  @media (max-width: 720px) { section { grid-template-columns: 1fr; } .section-index { padding-top: 0; margin-bottom: -16px; } }
+
+  /* ABOUT */
+  .about p { max-width: 64ch; color: var(--text-dim); font-size: 19px; line-height: 1.8; }
+  .about p + p { margin-top: 22px; }
+  .about strong { color: var(--text); font-weight: 500; }
+  .how-i-work { margin-top: 40px; background: var(--surface); border: 1px solid var(--line); padding: 22px 26px; font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--text-dim); max-width: 64ch; }
+  .how-i-work .comment { color: var(--accent); }
+
+  /* EXPERIENCE */
+  .role { display: grid; grid-template-columns: 140px 1fr; gap: 28px; padding: 36px 0; border-top: 1px solid var(--line); }
+  .role:first-child { border-top: none; padding-top: 0; }
+  .role-years { font-family: var(--mono); font-size: 12px; color: var(--text-dim); padding-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .role.current .role-years { color: var(--accent); }
+  .role-company { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .role-title { font-size: 14px; color: var(--accent); margin-bottom: 16px; }
+  .role ul { list-style: none; max-width: 62ch; }
+  .role li { position: relative; padding-left: 22px; margin-bottom: 10px; color: var(--text-dim); font-size: 16px; line-height: 1.7; }
+  .role li::before { content: ""; position: absolute; left: 0; top: 11px; width: 6px; height: 1px; background: var(--accent); }
+  .role li:last-child { margin-bottom: 0; }
+  @media (max-width: 720px) { .role { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 44px 48px; }
+  .skill-group dt { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.14em; }
+  .skill-group dd { display: flex; flex-wrap: wrap; gap: 8px 10px; }
+  .tag { font-size: 14px; color: var(--text); padding: 6px 14px; border: 1px solid var(--line); border-radius: 0; background: transparent; }
+  @media (max-width: 720px) { .skills-grid { grid-template-columns: 1fr; } }
+
+  /* RECOGNITION */
+  .recognition-list { display: flex; flex-direction: column; }
+  .recognition-row { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  .recognition-row:first-child { border-top: none; }
+  .recognition-row .title { font-size: 17px; color: var(--text); font-family: var(--serif); }
+  .recognition-row .org { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+  .recognition-row .year { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+  @media (max-width: 720px) { .recognition-row { grid-template-columns: 1fr auto; } .recognition-row .org { grid-column: 1 / 2; } }
+
+  /* CONTACT */
+  .contact p { max-width: 56ch; color: var(--text-dim); font-size: 19px; margin-bottom: 40px; line-height: 1.75; }
+  .contact-cta { display: inline-flex; align-items: baseline; gap: 14px; font-family: var(--serif); font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 500; color: var(--text); text-decoration: none; padding-bottom: 12px; border-bottom: 1px solid var(--line); transition: border-color 0.2s ease, color 0.2s ease; }
+  .contact-cta:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-cta .arrow { font-family: var(--sans); font-size: 0.55em; }
+  .contact-secondary { margin-top: 32px; display: flex; gap: 32px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .contact-secondary a { color: var(--text-dim); text-decoration: none; border-bottom: 1px solid transparent; }
+  .contact-secondary a:hover { color: var(--text); border-color: var(--line); }
+
+  [data-theme="light"] { --bg: #F2EEE4; --surface: #E8E2D4; --line: #D2CAB8; --text: #14161A; --text-dim: #5A5E68; --accent: #8A6A2F; }
+  body { transition: background 0.25s ease, color 0.25s ease; }
+
+  footer { padding: 40px 0 60px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); border-top: 1px solid var(--line); display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
 </style>
 <script type="application/ld+json">
 {
@@ -403,10 +198,13 @@
 <main class="wrap">
 
   <section class="hero" id="top" style="border-top:none;">
-    <div class="hero-eyebrow"><span class="dot"></span>Open to Engineering Manager &amp; senior IC roles</div>
-    <h1 class="hero-name">Sumit Kumar Pandit</h1>
-    <p class="hero-statement">Senior Software Engineer with <strong>11+ years</strong> in full-stack development, currently carrying <strong>Team Lead</strong> scope ahead of a move into engineering management.</p>
-    <div class="hero-facts">
+    <div class="hero-eyebrow reveal"><span class="dot"></span>Open to Engineering Manager &amp; senior IC roles</div>
+    <div class="terminal" id="terminal" aria-live="polite">
+      <span class="prompt">$ </span><span id="term-text"></span><span class="cursor" id="term-cursor"></span>
+    </div>
+    <h1 class="hero-name reveal">Sumit Kumar Pandit</h1>
+    <p class="hero-statement reveal">Senior Software Engineer with <strong>11+ years</strong> in full-stack development, currently carrying <strong>Team Lead</strong> scope ahead of a move into engineering management.</p>
+    <div class="hero-facts reveal">
       <span>Bengaluru, India</span>
       <span>4 companies · 11+ years</span>
       <a href="https://linkedin.com/in/sumitkpandit" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -417,18 +215,24 @@
   <section id="about">
     <div class="section-index"><span class="n">01</span> — About</div>
     <div class="section-body about">
-      <h2>Building things that hold up under real usage.</h2>
-      <p>I build client-facing full-stack applications end to end — from architecture through production launch. For the past two years I've been running technical direction and sprint planning for a cross-functional team in a de facto Team Lead capacity, ahead of a formal transition into an <strong>Engineering Manager</strong> role.</p>
-      <p>My background spans consumer-facing SaaS at Onclusive, healthcare systems at Cerner, database and reporting engineering at EY, and large-scale SAP implementations at IBM. Mentoring has been a constant thread through every one of them.</p>
+      <h2 class="reveal">Building things that hold up under real usage.</h2>
+      <p class="reveal">I build client-facing full-stack applications end to end — from architecture through production launch. For the past two years I've been running technical direction and sprint planning for a cross-functional team in a de facto Team Lead capacity, ahead of a formal transition into an <strong>Engineering Manager</strong> role.</p>
+      <p class="reveal">My background spans consumer-facing SaaS at Onclusive, healthcare systems at Cerner, database and reporting engineering at EY, and large-scale SAP implementations at IBM. Mentoring has been a constant thread through every one of them.</p>
+      <div class="how-i-work reveal">
+        <span class="comment">// how I work</span><br>
+        ship small, measure, iterate.<br>
+        prefer boring tech that scales over clever tech that doesn't.<br>
+        review code like a teacher, not a gatekeeper.<br>
+        mentor > manage.
+      </div>
     </div>
   </section>
 
   <section id="experience">
     <div class="section-index"><span class="n">02</span> — Experience</div>
     <div class="section-body">
-      <h2>Four companies, one throughline.</h2>
-
-      <div class="role current">
+      <h2 class="reveal">Four companies, one throughline.</h2>
+      <div class="role current reveal">
         <div class="role-years">2022 —<br>Present</div>
         <div>
           <div class="role-company">Onclusive India</div>
@@ -441,8 +245,7 @@
           </ul>
         </div>
       </div>
-
-      <div class="role">
+      <div class="role reveal">
         <div class="role-years">2020 —<br>2022</div>
         <div>
           <div class="role-company">Cerner Corporation</div>
@@ -454,8 +257,7 @@
           </ul>
         </div>
       </div>
-
-      <div class="role">
+      <div class="role reveal">
         <div class="role-years">2018 —<br>2020</div>
         <div>
           <div class="role-company">EY GDS India</div>
@@ -466,8 +268,7 @@
           </ul>
         </div>
       </div>
-
-      <div class="role">
+      <div class="role reveal">
         <div class="role-years">2014 —<br>2018</div>
         <div>
           <div class="role-company">IBM India</div>
@@ -478,64 +279,33 @@
           </ul>
         </div>
       </div>
-
     </div>
   </section>
 
   <section id="skills">
     <div class="section-index"><span class="n">03</span> — Skills</div>
     <div class="section-body">
-      <h2>The stack, end to end.</h2>
+      <h2 class="reveal">The stack, end to end.</h2>
       <dl class="skills-grid">
-        <div class="skill-group">
+        <div class="skill-group reveal">
           <dt>Languages</dt>
-          <dd>
-            <span class="tag">JavaScript</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Python</span>
-            <span class="tag">Ruby</span>
-            <span class="tag">ABAP</span>
-          </dd>
+          <dd><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">Ruby</span><span class="tag">ABAP</span></dd>
         </div>
-        <div class="skill-group">
+        <div class="skill-group reveal">
           <dt>Frontend</dt>
-          <dd>
-            <span class="tag">React</span>
-            <span class="tag">Redux</span>
-            <span class="tag">Vue</span>
-            <span class="tag">Nuxt</span>
-            <span class="tag">Pinia</span>
-            <span class="tag">Vite</span>
-            <span class="tag">SASS</span>
-          </dd>
+          <dd><span class="tag">React</span><span class="tag">Redux</span><span class="tag">Vue</span><span class="tag">Nuxt</span><span class="tag">Pinia</span><span class="tag">Vite</span><span class="tag">SASS</span></dd>
         </div>
-        <div class="skill-group">
+        <div class="skill-group reveal">
           <dt>Backend &amp; APIs</dt>
-          <dd>
-            <span class="tag">REST APIs</span>
-            <span class="tag">Ruby on Rails</span>
-            <span class="tag">NestJS</span>
-            <span class="tag">OOP</span>
-          </dd>
+          <dd><span class="tag">REST APIs</span><span class="tag">Ruby on Rails</span><span class="tag">NestJS</span><span class="tag">OOP</span></dd>
         </div>
-        <div class="skill-group">
+        <div class="skill-group reveal">
           <dt>Data &amp; tools</dt>
-          <dd>
-            <span class="tag">MySQL</span>
-            <span class="tag">SAP (RICEF)</span>
-            <span class="tag">Git</span>
-            <span class="tag">Jenkins</span>
-            <span class="tag">Jest</span>
-          </dd>
+          <dd><span class="tag">MySQL</span><span class="tag">SAP (RICEF)</span><span class="tag">Git</span><span class="tag">Jenkins</span><span class="tag">Jest</span></dd>
         </div>
-        <div class="skill-group">
+        <div class="skill-group reveal">
           <dt>Leadership</dt>
-          <dd>
-            <span class="tag">Technical direction</span>
-            <span class="tag">Sprint planning</span>
-            <span class="tag">Mentoring</span>
-            <span class="tag">Architecture reviews</span>
-          </dd>
+          <dd><span class="tag">Technical direction</span><span class="tag">Sprint planning</span><span class="tag">Mentoring</span><span class="tag">Architecture reviews</span></dd>
         </div>
       </dl>
     </div>
@@ -544,13 +314,13 @@
   <section id="recognition">
     <div class="section-index"><span class="n">04</span> — Recognition</div>
     <div class="section-body">
-      <h2>Along the way.</h2>
+      <h2 class="reveal">Along the way.</h2>
       <div class="recognition-list">
-        <div class="recognition-row"><span class="title">Prod Champion</span><span class="org">Cerner</span><span class="year">2022</span></div>
-        <div class="recognition-row"><span class="title">Manager Recognition</span><span class="org">Cerner</span><span class="year">2021</span></div>
-        <div class="recognition-row"><span class="title">Star of the Week</span><span class="org">Cerner</span><span class="year">2020</span></div>
-        <div class="recognition-row"><span class="title">Onsite Recognition Award</span><span class="org">EY</span><span class="year">2020</span></div>
-        <div class="recognition-row"><span class="title">Eminence &amp; Excellence Award</span><span class="org">IBM</span><span class="year">2017</span></div>
+        <div class="recognition-row reveal"><span class="title">Prod Champion</span><span class="org">Cerner</span><span class="year">2022</span></div>
+        <div class="recognition-row reveal"><span class="title">Manager Recognition</span><span class="org">Cerner</span><span class="year">2021</span></div>
+        <div class="recognition-row reveal"><span class="title">Star of the Week</span><span class="org">Cerner</span><span class="year">2020</span></div>
+        <div class="recognition-row reveal"><span class="title">Onsite Recognition Award</span><span class="org">EY</span><span class="year">2020</span></div>
+        <div class="recognition-row reveal"><span class="title">Eminence &amp; Excellence Award</span><span class="org">IBM</span><span class="year">2017</span></div>
       </div>
     </div>
   </section>
@@ -558,10 +328,10 @@
   <section id="contact">
     <div class="section-index"><span class="n">05</span> — Contact</div>
     <div class="section-body contact">
-      <h2>Let's talk.</h2>
-      <p>Open to conversations about engineering leadership roles, full-stack opportunities, or just talking shop.</p>
-      <a class="contact-cta" href="#" id="email-cta">Say hello <span class="arrow">→</span></a>
-      <div class="contact-secondary">
+      <h2 class="reveal">Let's talk.</h2>
+      <p class="reveal">Open to conversations about engineering leadership roles, full-stack opportunities, or just talking shop.</p>
+      <a class="contact-cta reveal" href="#" id="email-cta">Say hello <span class="arrow">→</span></a>
+      <div class="contact-secondary reveal">
         <a href="https://linkedin.com/in/sumitkpandit" target="_blank" rel="noopener">LinkedIn ↗</a>
         <span>Bengaluru, India</span>
       </div>
@@ -578,7 +348,52 @@
 </footer>
 
 <script>
-  // Lightly obfuscated mailto to deter basic scrapers while staying one click for humans.
+  // Terminal typing effect
+  (function () {
+    var lines = [
+      'whoami',
+      'sumit kumar pandit — senior software engineer, bengaluru',
+      'cat ./focus.txt',
+      'full-stack · technical leadership · mentoring'
+    ];
+    var el = document.getElementById('term-text');
+    var cursor = document.getElementById('term-cursor');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { el.textContent = '$ ' + lines.join('\n$ '); cursor.style.display = 'none'; return; }
+    var i = 0, j = 0, typing = true, lineIndex = 0;
+    var current = '';
+    function tick() {
+      var line = lines[lineIndex];
+      if (typing) {
+        if (j < line.length) { current += line[j++]; el.textContent = current; setTimeout(tick, 45); }
+        else { typing = false; setTimeout(tick, 900); }
+      } else {
+        if (lineIndex < lines.length - 1) {
+          current += '\n$ '; lineIndex++; j = 0; typing = true; el.textContent = current; setTimeout(tick, 300);
+        } else {
+          cursor.style.display = 'none';
+        }
+      }
+    }
+    el.textContent = '$ ';
+    current = '$ ';
+    // restart properly
+    current = ''; lineIndex = 0; j = 0; typing = true; el.textContent = '';
+    function run() {
+      var line = lines[lineIndex];
+      if (typing) {
+        if (j < line.length) { current += line[j++]; el.textContent = current; setTimeout(run, 45); }
+        else { typing = false; setTimeout(run, 900); }
+      } else {
+        if (lineIndex < lines.length - 1) { current += '\n$ '; lineIndex++; j = 0; typing = true; el.textContent = current; setTimeout(run, 300); }
+        else { cursor.style.display = 'none'; }
+      }
+    }
+    // initial prompt
+    current = '$ '; el.textContent = current; setTimeout(function(){ typing=true; run(); }, 400);
+  })();
+
+  // Lightly obfuscated mailto
   (function () {
     var u = "panditsumitkumar";
     var d = "gmail.com";
@@ -608,6 +423,18 @@
       var open = links.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+  })();
+
+  // Scroll reveals
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(e){ io.observe(e); });
   })();
 </script>
 
