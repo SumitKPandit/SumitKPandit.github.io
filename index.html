@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sumit Kumar Pandit — Senior Software Engineer</title>
 <meta name="description" content="Sumit Kumar Pandit — Senior Software Engineer, full-stack development and technical leadership.">
+<link rel="canonical" href="https://sumitkpandit.in/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sumit Kumar Pandit — Senior Software Engineer">
+<meta property="og:description" content="Senior Software Engineer with 11+ years in full-stack development, targeting Engineering Manager roles.">
+<meta property="og:url" content="https://sumitkpandit.in/">
+<meta property="og:site_name" content="sumitkpandit.in">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sumit Kumar Pandit — Senior Software Engineer">
+<meta name="twitter:description" content="Senior Software Engineer with 11+ years in full-stack development, targeting Engineering Manager roles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -317,6 +326,34 @@
   }
   .contact-secondary a:hover { color: var(--text); border-color: var(--line); }
 
+  [data-theme="light"] {
+    --bg: #F4F1EA;
+    --surface: #EAE6DD;
+    --line: #D6D0C4;
+    --text: #14161A;
+    --text-dim: #5A5E68;
+    --accent: #8A6A2F;
+  }
+  body { transition: background 0.2s ease, color 0.2s ease; }
+
+  .theme-toggle, .nav-toggle {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .theme-toggle:hover, .nav-toggle:hover { color: var(--text); border-color: var(--accent); }
+  .nav-toggle { display: none; }
+  @media (max-width: 640px) {
+    .nav-toggle { display: inline-block; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; right: 40px; background: var(--surface); border: 1px solid var(--line); padding: 12px 16px; gap: 12px; }
+  }
+
   footer {
     padding: 36px 0 60px;
     font-family: var(--mono);
@@ -327,13 +364,34 @@
     justify-content: space-between;
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sumit Kumar Pandit",
+  "jobTitle": "Senior Software Engineer",
+  "url": "https://sumitkpandit.in/",
+  "sameAs": ["https://linkedin.com/in/sumitkpandit"],
+  "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}
+}
+</script>
+<script>
+  (function(){
+    var saved = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = saved || (prefersDark ? 'dark' : 'light');
+    if (theme === 'light') document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" aria-label="Primary">
   <div class="nav-inner">
     <div class="nav-mark">sumitkpandit<span>.in</span></div>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">Theme</button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -526,6 +584,30 @@
     var d = "gmail.com";
     var link = document.getElementById("email-cta");
     link.setAttribute("href", "mailto:" + u + "@" + d);
+  })();
+
+  // Theme toggle
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    function apply(theme) {
+      if (theme === 'light') document.documentElement.setAttribute('data-theme','light');
+      else document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', theme);
+      btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+    }
+    var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    btn.textContent = current === 'light' ? 'Dark' : 'Light';
+    btn.addEventListener('click', function () { apply(current === 'light' ? 'dark' : 'light'); current = current === 'light' ? 'dark' : 'light'; });
+  })();
+
+  // Mobile nav toggle
+  (function () {
+    var toggle = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
   })();
 </script>
 
