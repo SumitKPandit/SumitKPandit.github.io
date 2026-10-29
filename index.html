@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%230E0F13%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2218%22 text-anchor=%22middle%22 fill=%22%23C9A15F%22 font-family=%22monospace%22%3ES%3C/text%3E%3C/svg%3E">
 <title>Sumit Kumar Pandit — Senior Software Engineer</title>
 <meta name="description" content="Sumit Kumar Pandit — Senior Software Engineer, full-stack development and technical leadership.">
 <link rel="canonical" href="https://sumitkpandit.github.io/">
@@ -56,7 +57,7 @@
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 56px; }
 
   /* NAV */
-  .nav { position: sticky; top: 0; z-index: 10; background: rgba(14,15,19,0.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
   .nav-inner { max-width: 1120px; margin: 0 auto; padding: 20px 56px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
   .nav-mark { font-family: var(--mono); font-size: 13px; color: var(--text-dim); letter-spacing: 0.02em; }
   .nav-mark span { color: var(--accent); }
@@ -184,8 +185,8 @@
 <nav class="nav" aria-label="Primary">
   <div class="nav-inner">
     <div class="nav-mark">sumitkpandit<span>.in</span></div>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme">Theme</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">Menu</button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">Light</button>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -408,10 +409,14 @@
       if (theme === 'light') document.documentElement.setAttribute('data-theme','light');
       else document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('theme', theme);
-      btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+      var label = theme === 'light' ? 'Dark' : 'Light';
+      btn.textContent = label;
+      btn.setAttribute('aria-label', 'Switch to ' + label.toLowerCase() + ' theme');
     }
     var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-    btn.textContent = current === 'light' ? 'Dark' : 'Light';
+    var initLabel = current === 'light' ? 'Dark' : 'Light';
+    btn.textContent = initLabel;
+    btn.setAttribute('aria-label', 'Switch to ' + initLabel.toLowerCase() + ' theme');
     btn.addEventListener('click', function () { apply(current === 'light' ? 'dark' : 'light'); current = current === 'light' ? 'dark' : 'light'; });
   })();
 
